@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ElevenLabsClient } from '@elevenlabs/elevenlabs-js';
 
-const elevenlabs = new ElevenLabsClient({
-  apiKey: process.env.ELEVENLABS_API_KEY,
-});
-
 export async function POST(request: NextRequest) {
   try {
     const { text } = await request.json();
@@ -12,6 +8,11 @@ export async function POST(request: NextRequest) {
     if (!text) {
       return NextResponse.json({ error: 'Text is required' }, { status: 400 });
     }
+
+    // Initialize ElevenLabs client (only at request time, not build time)
+    const elevenlabs = new ElevenLabsClient({
+      apiKey: process.env.ELEVENLABS_API_KEY,
+    });
 
     // Generate speech using ElevenLabs
     const audio = await elevenlabs.textToSpeech.convert(
