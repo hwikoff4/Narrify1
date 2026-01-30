@@ -87,8 +87,8 @@ export default function AdminRequestsPage() {
         .order('usage_count', { ascending: false });
 
       const processedRequests: RequestSummary[] = (keysData || [])
-        .filter(key => (key.usage_count || 0) > 0) // Only show keys with requests
-        .map(key => ({
+        .filter((key: any) => (key.usage_count || 0) > 0) // Only show keys with requests
+        .map((key: any) => ({
           api_key_id: key.id,
           api_key_name: key.name,
           api_key: key.key,

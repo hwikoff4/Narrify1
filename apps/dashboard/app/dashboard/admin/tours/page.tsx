@@ -93,7 +93,7 @@ export default function AdminToursPage() {
         `)
         .order('created_at', { ascending: false });
 
-      const processedTours: TourDetail[] = (toursData || []).map(tour => ({
+      const processedTours: TourDetail[] = (toursData || []).map((tour: any) => ({
         id: tour.id,
         title: tour.title,
         description: tour.description,

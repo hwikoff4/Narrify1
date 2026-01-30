@@ -3,7 +3,7 @@
  * AI-powered interactive tours with vision-aware conversation
  */
 
-import { NarrifyEngine } from './core/NarrifyEngine';
+import { NarrifyEngine, type NarrifyEngineOptions } from './core/NarrifyEngine';
 import type { NarrifyConfig } from '@narrify/shared';
 
 /**
@@ -24,7 +24,7 @@ export class Narrify {
   /**
    * Initialize Narrify with configuration
    */
-  static init(config: Partial<NarrifyConfig>): NarrifyEngine {
+  static init(config: Partial<NarrifyConfig> & { apiKey: string }): NarrifyEngine {
     if (this.instance) {
       console.warn('[Narrify] Already initialized. Use destroy() first to reinitialize.');
       return this.instance;
@@ -36,7 +36,7 @@ export class Narrify {
     }
 
     // Create engine instance
-    this.instance = new NarrifyEngine(config);
+    this.instance = new NarrifyEngine(config as NarrifyEngineOptions);
 
     // Auto-start if configured
     if (config.autoStart) {

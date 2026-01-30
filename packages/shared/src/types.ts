@@ -48,6 +48,9 @@ export interface NarrifyConfig {
 
   // 12. Exit Behavior
   exit: ExitConfig;
+
+  // 13. Vision Navigation
+  visionNavigation: VisionNavigationConfig;
 }
 
 export interface ThemeConfig {
@@ -65,7 +68,7 @@ export interface CaptionConfig {
 
 export interface ConversationConfig {
   enabled: boolean;
-  buttonPosition: 'bottom-right' | 'bottom-left' | 'top-right' | 'inline';
+  buttonPosition: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left' | 'inline';
   buttonLabel: string;
   agentName: string;
   agentPersonality: string;
@@ -104,12 +107,19 @@ export interface KeyboardConfig {
   previous: string;
   replay: string;
   exit: string;
+  conversation: string;
 }
 
 export interface ExitConfig {
   confirmationDialog: boolean;
   confirmationTitle: string;
   confirmationMessage: string;
+}
+
+export interface VisionNavigationConfig {
+  enabled: boolean;
+  fallbackToSelector: boolean;
+  logResults: boolean;
 }
 
 // ============================================================================

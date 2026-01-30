@@ -37,9 +37,9 @@ export default async function DashboardPage() {
     .select('*')
     .eq('client_id', client?.id);
 
-  const tourStarts = analytics?.filter((e) => e.type === 'tour_start').length || 0;
-  const tourCompletes = analytics?.filter((e) => e.type === 'tour_complete').length || 0;
-  const questions = analytics?.filter((e) => e.type === 'question_asked').length || 0;
+  const tourStarts = analytics?.filter((e: any) => e.type === 'tour_start').length || 0;
+  const tourCompletes = analytics?.filter((e: any) => e.type === 'tour_complete').length || 0;
+  const questions = analytics?.filter((e: any) => e.type === 'question_asked').length || 0;
   const completionRate = tourStarts > 0 ? tourCompletes / tourStarts : 0;
 
   // Get tours count

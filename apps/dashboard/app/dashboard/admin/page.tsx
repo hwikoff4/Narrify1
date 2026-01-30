@@ -129,7 +129,7 @@ export default function AdminPage() {
         .select('id, active, created_at, usage_count, client_id');
 
       // Process clients data
-      const processedClients: Client[] = (clientsData || []).map(client => ({
+      const processedClients: Client[] = (clientsData || []).map((client: any) => ({
         id: client.id,
         email: client.email,
         name: client.name,
@@ -150,11 +150,11 @@ export default function AdminPage() {
       ).length;
 
       const totalTours = toursData?.length || 0;
-      const publishedTours = toursData?.filter(t => t.published).length || 0;
+      const publishedTours = toursData?.filter((t: any) => t.published).length || 0;
 
       const totalApiKeys = apiKeysData?.length || 0;
-      const activeApiKeys = apiKeysData?.filter(k => k.active).length || 0;
-      const totalViews = apiKeysData?.reduce((sum, k) => sum + (k.usage_count || 0), 0) || 0;
+      const activeApiKeys = apiKeysData?.filter((k: any) => k.active).length || 0;
+      const totalViews = apiKeysData?.reduce((sum: number, k: any) => sum + (k.usage_count || 0), 0) || 0;
 
       // Calculate growth rates (comparing to previous period)
       const now = new Date();
@@ -169,10 +169,10 @@ export default function AdminPage() {
         new Date(c.created_at) >= previousPeriodStart && new Date(c.created_at) < periodStart
       ).length;
 
-      const currentTours = toursData?.filter(t =>
+      const currentTours = toursData?.filter((t: any) =>
         new Date(t.created_at) >= periodStart
       ).length || 0;
-      const previousTours = toursData?.filter(t =>
+      const previousTours = toursData?.filter((t: any) =>
         new Date(t.created_at) >= previousPeriodStart && new Date(t.created_at) < periodStart
       ).length || 0;
 
@@ -181,14 +181,14 @@ export default function AdminPage() {
 
       // Calculate top clients by value
       const topClients = processedClients
-        .map(c => ({
+        .map((c: any) => ({
           name: c.name,
           email: c.email,
           tours: c.total_tours || 0,
           views: 0, // Would calculate from actual usage data
           value: calculateClientValue(c),
         }))
-        .sort((a, b) => b.value - a.value)
+        .sort((a: any, b: any) => b.value - a.value)
         .slice(0, 10);
 
       setAnalytics({
@@ -235,7 +235,7 @@ export default function AdminPage() {
   }
 
   function exportData(format: 'csv' | 'json') {
-    const dataToExport = clients.map(c => ({
+    const dataToExport = clients.map((c: any) => ({
       Email: c.email,
       Name: c.name,
       Company: c.company || 'N/A',

@@ -94,7 +94,7 @@ export default function AdminClientsPage() {
         `)
         .order('created_at', { ascending: false });
 
-      const processedClients: ClientDetail[] = (clientsData || []).map(client => {
+      const processedClients: ClientDetail[] = (clientsData || []).map((client: any) => {
         const totalRequests = client.api_keys?.reduce((sum: number, key: any) =>
           sum + (key.usage_count || 0), 0
         ) || 0;

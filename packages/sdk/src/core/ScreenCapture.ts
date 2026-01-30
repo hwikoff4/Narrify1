@@ -17,6 +17,13 @@ export class ScreenCapture {
   }
 
   /**
+   * Capture current viewport as base64 image (default capture method)
+   */
+  async capture(): Promise<string> {
+    return this.captureViewport();
+  }
+
+  /**
    * Capture current viewport as base64 image
    */
   async captureViewport(): Promise<string> {

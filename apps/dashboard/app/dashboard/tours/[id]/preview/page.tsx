@@ -64,7 +64,7 @@ export default function TourPreviewPage() {
   const currentStep = currentPage?.steps[currentStepIndex];
   const totalSteps = tour?.pages.reduce((sum, page) => sum + page.steps.length, 0) || 0;
   const currentStepNumber =
-    tour?.pages.slice(0, currentPageIndex).reduce((sum, page) => sum + page.steps.length, 0) +
+    (tour?.pages.slice(0, currentPageIndex).reduce((sum, page) => sum + page.steps.length, 0) || 0) +
     currentStepIndex +
     1;
 
@@ -605,7 +605,7 @@ export default function TourPreviewPage() {
         {/* Website Iframe */}
         <div className="absolute inset-0">
           <iframe
-            src={currentPage.url}
+            src={currentPage?.url || ''}
             className="w-full h-full border-0"
             title="Website Preview"
             sandbox="allow-scripts allow-same-origin"

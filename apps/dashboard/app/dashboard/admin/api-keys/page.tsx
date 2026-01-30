@@ -95,7 +95,7 @@ export default function AdminApiKeysPage() {
         `)
         .order('created_at', { ascending: false });
 
-      const processedKeys: ApiKeyDetail[] = (keysData || []).map(key => ({
+      const processedKeys: ApiKeyDetail[] = (keysData || []).map((key: any) => ({
         id: key.id,
         key: key.key,
         name: key.name,

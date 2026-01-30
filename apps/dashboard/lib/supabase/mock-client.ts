@@ -89,7 +89,7 @@ class MockQueryBuilder {
   }
 
   async then(resolve: any) {
-    let data;
+    let data: any[];
 
     switch (this.tableName) {
       case 'clients':
@@ -187,13 +187,13 @@ class MockMutationBuilder {
 
       switch (this.tableName) {
         case 'clients':
-          if (filter && demoData.client[filter.column] === filter.value) {
+          if (filter && (demoData.client as any)[filter.column] === filter.value) {
             demoData.client = { ...demoData.client, ...this.updateData };
             updated = true;
           }
           break;
         case 'tours':
-          demoData.tours = demoData.tours.map((tour) =>
+          demoData.tours = demoData.tours.map((tour: any) =>
             filter && tour[filter.column] === filter.value
               ? { ...tour, ...this.updateData }
               : tour
@@ -201,7 +201,7 @@ class MockMutationBuilder {
           updated = true;
           break;
         case 'api_keys':
-          demoData.apiKeys = demoData.apiKeys.map((key) =>
+          demoData.apiKeys = demoData.apiKeys.map((key: any) =>
             filter && key[filter.column] === filter.value
               ? { ...key, ...this.updateData }
               : key
@@ -218,12 +218,12 @@ class MockMutationBuilder {
       switch (this.tableName) {
         case 'tours':
           demoData.tours = demoData.tours.filter(
-            (tour) => !filter || tour[filter.column] !== filter.value
+            (tour: any) => !filter || tour[filter.column] !== filter.value
           );
           break;
         case 'api_keys':
           demoData.apiKeys = demoData.apiKeys.filter(
-            (key) => !filter || key[filter.column] !== filter.value
+            (key: any) => !filter || key[filter.column] !== filter.value
           );
           break;
       }

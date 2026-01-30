@@ -18,15 +18,24 @@ export async function POST(request: NextRequest) {
       process.env.ELEVENLABS_VOICE_ID || '21m00Tcm4TlvDq8ikWAM',
       {
         text,
-        model_id: 'eleven_monolingual_v1',
+        modelId: 'eleven_monolingual_v1',
       }
     );
 
     // Convert audio stream to buffer
     const chunks: Uint8Array[] = [];
-    for await (const chunk of audio) {
-      chunks.push(chunk);
+    const reader = audio.getReader();
+    
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        if (value) chunks.push(value);
+      }
+    } finally {
+      reader.releaseLock();
     }
+    
     const buffer = Buffer.concat(chunks);
 
     // Return audio as response

@@ -11,7 +11,7 @@ import { ScreenCapture } from './ScreenCapture';
 
 export interface ConversationUIConfig {
   buttonLabel: string;
-  buttonPosition: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
+  buttonPosition: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left' | 'inline';
   agentName: string;
   agentPersonality: string;
   primaryColor: string;
@@ -309,16 +309,7 @@ export class ConversationUI {
    * Setup speech recognition handlers
    */
   private setupSpeechRecognition(): void {
-    this.speechToText.onResult((transcript: string) => {
-      this.addMessage('user', transcript);
-      this.handleUserQuestion(transcript);
-    });
-
-    this.speechToText.onError((error: string) => {
-      this.addMessage('system', `Speech recognition error: ${error}`);
-      this.isListening = false;
-      this.updateMicButton();
-    });
+    // Handlers are set up dynamically when starting listening
   }
 
   /**
@@ -343,7 +334,7 @@ export class ConversationUI {
   private async handleUserQuestion(question: string): Promise<void> {
     try {
       // Capture screen
-      const screenshot = await this.screenCapture.capture();
+      const screenshot = await this.screenCapture.captureViewport();
 
       // Get AI response with vision
       const response = await this.visionAI.ask(
@@ -370,12 +361,33 @@ export class ConversationUI {
    */
   private toggleListening(): void {
     if (this.isListening) {
-      this.speechToText.stop();
+      this.speechToText.stopListening();
       this.isListening = false;
     } else {
       this.addMessage('system', 'Listening... Ask your question now');
-      this.speechToText.start();
-      this.isListening = true;
+      this.speechToText.startListening({
+        onResult: (transcript: string, isFinal: boolean) => {
+          if (isFinal) {
+            this.addMessage('user', transcript);
+            this.handleUserQuestion(transcript);
+            this.isListening = false;
+            this.updateMicButton();
+          }
+        },
+        onError: (error: any) => {
+          this.addMessage('system', `Speech recognition error: ${error}`);
+          this.isListening = false;
+          this.updateMicButton();
+        },
+        onEnd: () => {
+          this.isListening = false;
+          this.updateMicButton();
+        },
+        onStart: () => {
+          this.isListening = true;
+          this.updateMicButton();
+        }
+      });
     }
     this.updateMicButton();
   }
@@ -424,7 +436,7 @@ export class ConversationUI {
 
     // Stop listening if active
     if (this.isListening) {
-      this.speechToText.stop();
+      this.speechToText.stopListening();
       this.isListening = false;
       this.updateMicButton();
     }
