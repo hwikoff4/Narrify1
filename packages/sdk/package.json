@@ -1,0 +1,46 @@
+{
+  "name": "@narrify/sdk",
+  "version": "1.0.0",
+  "description": "AI-powered interactive tour SDK with vision-aware conversation",
+  "main": "./dist/narrify.cjs.js",
+  "module": "./dist/narrify.esm.js",
+  "types": "./dist/index.d.ts",
+  "unpkg": "./dist/narrify.umd.js",
+  "jsdelivr": "./dist/narrify.umd.js",
+  "exports": {
+    ".": {
+      "import": "./dist/narrify.esm.js",
+      "require": "./dist/narrify.cjs.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "tsc && vite build",
+    "lint": "eslint src/",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@narrify/shared": "workspace:*",
+    "html2canvas": "^1.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10",
+    "vite-plugin-dts": "^3.7.0"
+  },
+  "keywords": [
+    "tour",
+    "onboarding",
+    "ai",
+    "voice",
+    "interactive",
+    "tutorial",
+    "guide"
+  ]
+}

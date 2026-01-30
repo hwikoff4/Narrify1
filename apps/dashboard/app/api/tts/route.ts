@@ -1,0 +1,46 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { ElevenLabsClient } from '@elevenlabs/elevenlabs-js';
+
+const elevenlabs = new ElevenLabsClient({
+  apiKey: process.env.ELEVENLABS_API_KEY,
+});
+
+export async function POST(request: NextRequest) {
+  try {
+    const { text } = await request.json();
+
+    if (!text) {
+      return NextResponse.json({ error: 'Text is required' }, { status: 400 });
+    }
+
+    // Generate speech using ElevenLabs
+    const audio = await elevenlabs.textToSpeech.convert(
+      process.env.ELEVENLABS_VOICE_ID || '21m00Tcm4TlvDq8ikWAM',
+      {
+        text,
+        model_id: 'eleven_monolingual_v1',
+      }
+    );
+
+    // Convert audio stream to buffer
+    const chunks: Uint8Array[] = [];
+    for await (const chunk of audio) {
+      chunks.push(chunk);
+    }
+    const buffer = Buffer.concat(chunks);
+
+    // Return audio as response
+    return new NextResponse(buffer, {
+      headers: {
+        'Content-Type': 'audio/mpeg',
+        'Content-Length': buffer.length.toString(),
+      },
+    });
+  } catch (error: any) {
+    console.error('TTS Error:', error);
+    return NextResponse.json(
+      { error: 'Failed to generate speech' },
+      { status: 500 }
+    );
+  }
+}
