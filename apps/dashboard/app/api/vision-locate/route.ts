@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
       .update({
         usage_count: currentUsageCount + 1,
         last_used_at: new Date().toISOString(),
-      } as any)
+      })
       .eq('id', apiKeyData.id);
 
     const body: VisionLocateRequest = await request.json();
