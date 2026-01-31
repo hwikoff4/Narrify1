@@ -68,7 +68,6 @@ export async function POST(request: NextRequest) {
     const supabaseForUpdate = await createClient();
     await supabaseForUpdate
       .from('api_keys')
-      // @ts-expect-error - Supabase type definitions issue with api_keys table
       .update({
         usage_count: currentUsageCount + 1,
         last_used_at: new Date().toISOString(),
