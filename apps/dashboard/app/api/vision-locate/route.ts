@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
       .eq('key', apiKey)
       .single();
 
-    if (keyError || !keyData || !keyData.active) {
+    if (keyError || !keyData || !(keyData as any).active) {
       return NextResponse.json(
         { error: 'Invalid or inactive API key' },
         { status: 401 }
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
         usage_count: supabase.rpc('increment'),
         last_used_at: new Date().toISOString(),
       })
-      .eq('id', keyData.id);
+      .eq('id', (keyData as any).id);
 
     const body: VisionLocateRequest = await request.json();
     const { screenshot, elementDescription, selectorHint, tourContext } = body;
