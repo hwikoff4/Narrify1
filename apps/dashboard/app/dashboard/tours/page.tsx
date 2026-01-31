@@ -10,11 +10,17 @@ export default async function ToursPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { data: client } = await supabase
+  if (!user?.id) {
+    return null;
+  }
+
+  const { data: clientData } = await supabase
     .from('clients')
     .select('*')
-    .eq('auth_user_id', user?.id)
+    .eq('auth_user_id', user.id)
     .single();
+
+  const client = clientData as any;
 
   const { data: tours } = await supabase
     .from('tours')

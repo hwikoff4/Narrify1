@@ -34,11 +34,15 @@ export default function SettingsPage() {
     try {
       const { data: { user } } = await supabase.auth.getUser();
 
-      const { data: clientData } = await supabase
+      if (!user?.id) return;
+
+      const { data: clientDataRaw } = await supabase
         .from('clients')
         .select('*')
-        .eq('auth_user_id', user?.id)
+        .eq('auth_user_id', user.id)
         .single();
+
+      const clientData = clientDataRaw as any;
 
       if (clientData) {
         setClient(clientData);
@@ -59,14 +63,21 @@ export default function SettingsPage() {
     setSaving(true);
     setMessage('');
 
+    if (!client?.id) {
+      setMessage('Client data not loaded');
+      setSaving(false);
+      return;
+    }
+
     try {
       const { error } = await supabase
         .from('clients')
+        // @ts-expect-error - Supabase type definitions issue with clients table
         .update({
           name,
           company,
         })
-        .eq('id', client?.id);
+        .eq('id', client.id);
 
       if (error) throw error;
 

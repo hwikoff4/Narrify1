@@ -25,11 +25,17 @@ export default async function DashboardPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { data: client } = await supabase
+  if (!user?.id) {
+    return null;
+  }
+
+  const { data: clientData } = await supabase
     .from('clients')
     .select('*')
-    .eq('auth_user_id', user?.id)
+    .eq('auth_user_id', user.id)
     .single();
+
+  const client = clientData as any;
 
   // Get analytics summary
   const { data: analytics } = await supabase

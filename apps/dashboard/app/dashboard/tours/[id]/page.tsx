@@ -25,18 +25,24 @@ export default function TourDetailPage() {
     try {
       const { data: { user } } = await supabase.auth.getUser();
 
-      const { data: client } = await supabase
+      if (!user?.id) return;
+
+      const { data: clientData } = await supabase
         .from('clients')
         .select('*')
-        .eq('auth_user_id', user?.id)
+        .eq('auth_user_id', user.id)
         .single();
 
-      const { data: tourData } = await supabase
+      const client = clientData as any;
+
+      const { data: tourDataRaw } = await supabase
         .from('tours')
         .select('*')
         .eq('id', params.id)
         .eq('client_id', client?.id)
         .single();
+
+      const tourData = tourDataRaw as any;
 
       if (!tourData) {
         router.push('/dashboard/tours');

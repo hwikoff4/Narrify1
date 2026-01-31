@@ -61,11 +61,13 @@ export async function validateApiKey(
     const supabase = createClient();
 
     // Look up the API key in the database
-    const { data: keyData, error } = await supabase
+    const { data: keyDataRaw, error } = await supabase
       .from('api_keys')
       .select('id, client_id, active, domains, usage_count, usage_limit')
       .eq('key', apiKey)
       .single();
+
+    const keyData = keyDataRaw as any;
 
     if (error || !keyData) {
       return {
@@ -118,6 +120,7 @@ export async function validateApiKey(
     // Update last_used_at and increment usage_count
     await supabase
       .from('api_keys')
+      // @ts-expect-error - Supabase type definitions issue with api_keys table
       .update({
         last_used_at: new Date().toISOString(),
         usage_count: (keyData.usage_count || 0) + 1,

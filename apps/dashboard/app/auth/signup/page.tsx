@@ -47,6 +47,7 @@ export default function SignupPage() {
       }
 
       if (authData.user) {
+        // @ts-expect-error - Supabase type definitions issue with clients table
         const { error: clientError } = await supabase.from('clients').insert({
           auth_user_id: authData.user.id,
           email,

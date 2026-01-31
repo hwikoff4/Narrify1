@@ -236,18 +236,24 @@ export default function TourPreviewPage() {
         data: { user },
       } = await supabase.auth.getUser();
 
-      const { data: client } = await supabase
+      if (!user?.id) return;
+
+      const { data: clientData } = await supabase
         .from('clients')
         .select('id')
-        .eq('auth_user_id', user?.id)
+        .eq('auth_user_id', user.id)
         .single();
 
-      const { data: tourData, error: tourError } = await supabase
+      const client = clientData as any;
+
+      const { data: tourDataRaw, error: tourError } = await supabase
         .from('tours')
         .select('*')
         .eq('id', params.id)
         .eq('client_id', client?.id)
         .single();
+
+      const tourData = tourDataRaw as any;
 
       if (tourError) throw tourError;
       setTour(tourData);
@@ -458,6 +464,7 @@ export default function TourPreviewPage() {
 
       const { error } = await supabase
         .from('tours')
+        // @ts-expect-error - Supabase type definitions issue with tours table
         .update({ pages: updatedPages })
         .eq('id', tour.id);
 

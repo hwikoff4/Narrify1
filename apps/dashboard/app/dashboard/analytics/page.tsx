@@ -74,11 +74,15 @@ export default function AnalyticsPage() {
         data: { user },
       } = await supabase.auth.getUser();
 
-      const { data: client } = await supabase
+      if (!user?.id) return;
+
+      const { data: clientData } = await supabase
         .from('clients')
         .select('id')
-        .eq('auth_user_id', user?.id)
+        .eq('auth_user_id', user.id)
         .single();
+
+      const client = clientData as any;
 
       // Get date range
       const daysAgo = parseInt(dateRange);

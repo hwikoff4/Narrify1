@@ -29,11 +29,16 @@ export default function AISettingsPage() {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    const { data: client } = await supabase
+
+    if (!user?.id) return;
+
+    const { data: clientData } = await supabase
       .from('clients')
       .select('config')
-      .eq('auth_user_id', user?.id)
+      .eq('auth_user_id', user.id)
       .single();
+
+    const client = clientData as any;
 
     if (client?.config?.conversation) {
       const conv = client.config.conversation;
@@ -60,14 +65,22 @@ export default function AISettingsPage() {
         data: { user },
       } = await supabase.auth.getUser();
 
-      const { data: client } = await supabase
+      if (!user?.id) {
+        setMessage('User not authenticated');
+        return;
+      }
+
+      const { data: clientData } = await supabase
         .from('clients')
         .select('config')
-        .eq('auth_user_id', user?.id)
+        .eq('auth_user_id', user.id)
         .single();
+
+      const client = clientData as any;
 
       const { error } = await supabase
         .from('clients')
+        // @ts-expect-error - Supabase type definitions issue with clients table
         .update({
           config: {
             ...client?.config,

@@ -20,18 +20,25 @@ export default function EmbedPage() {
   async function loadActiveKey() {
     try {
       const { data: { user } } = await supabase.auth.getUser();
-      const { data: client } = await supabase
+
+      if (!user?.id) return;
+
+      const { data: clientData } = await supabase
         .from('clients')
         .select('id')
-        .eq('auth_user_id', user?.id)
+        .eq('auth_user_id', user.id)
         .single();
 
-      const { data: keys } = await supabase
+      const client = clientData as any;
+
+      const { data: keysData } = await supabase
         .from('api_keys')
         .select('key, active')
         .eq('client_id', client?.id)
         .eq('active', true)
         .limit(1);
+
+      const keys = keysData as any;
 
       if (keys && keys.length > 0) {
         setActiveKey(keys[0].key);

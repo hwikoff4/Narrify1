@@ -267,16 +267,19 @@ export default function NewTourPage() {
         if (!user) throw new Error('Not authenticated');
 
         // Get or create client record
-        let { data: client } = await supabase
+        let { data: clientData } = await supabase
           .from('clients')
           .select('id')
           .eq('auth_user_id', user.id)
           .maybeSingle();
 
+        let client = clientData as any;
+
         // If client doesn't exist, create it
         if (!client) {
           const { data: newClient, error: clientError } = await supabase
             .from('clients')
+            // @ts-expect-error - Supabase type definitions issue with clients table
             .insert({
               auth_user_id: user.id,
               email: user.email,
@@ -287,17 +290,20 @@ export default function NewTourPage() {
             .single();
 
           if (clientError) throw clientError;
-          client = newClient;
+          client = newClient as any;
         }
 
         if (!client) throw new Error('Failed to create client record');
 
-        const { error: insertError } = await supabase.from('tours').insert({
-          client_id: client.id,
-          name,
-          description,
-          pages,
-        });
+        const { error: insertError } = await supabase
+          .from('tours')
+          // @ts-expect-error - Supabase type definitions issue with tours table
+          .insert({
+            client_id: client.id,
+            name,
+            description,
+            pages,
+          });
 
         if (insertError) throw insertError;
       } else {

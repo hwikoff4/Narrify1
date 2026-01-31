@@ -13,6 +13,13 @@ interface VisionLocateRequest {
   };
 }
 
+interface ApiKeyData {
+  id: string;
+  active: boolean;
+  client_id: string;
+  usage_count: number;
+}
+
 interface ElementLocation {
   found: boolean;
   selector?: string;
@@ -43,11 +50,13 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient();
     const { data: keyData, error: keyError } = await supabase
       .from('api_keys')
-      .select('id, active, client_id')
+      .select('id, active, client_id, usage_count')
       .eq('key', apiKey)
       .single();
 
-    if (keyError || !keyData || !(keyData as any).active) {
+    const apiKeyData = keyData as unknown as ApiKeyData | null;
+
+    if (keyError || !apiKeyData || !apiKeyData.active) {
       return NextResponse.json(
         { error: 'Invalid or inactive API key' },
         { status: 401 }
@@ -55,13 +64,16 @@ export async function POST(request: NextRequest) {
     }
 
     // Update API key usage
-    await supabase
+    const currentUsageCount = apiKeyData.usage_count || 0;
+    const supabaseForUpdate = await createClient();
+    await supabaseForUpdate
       .from('api_keys')
+      // @ts-expect-error - Supabase type definitions issue with api_keys table
       .update({
-        usage_count: supabase.rpc('increment'),
+        usage_count: currentUsageCount + 1,
         last_used_at: new Date().toISOString(),
       })
-      .eq('id', (keyData as any).id);
+      .eq('id', apiKeyData.id);
 
     const body: VisionLocateRequest = await request.json();
     const { screenshot, elementDescription, selectorHint, tourContext } = body;
