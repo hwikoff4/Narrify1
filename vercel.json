@@ -1,4 +1,3 @@
 {
-  "buildCommand": "turbo run build --filter=narrify-dashboard",
-  "outputDirectory": "apps/dashboard/.next"
+  "buildCommand": "pnpm turbo run build --filter=narrify-dashboard"
 }
