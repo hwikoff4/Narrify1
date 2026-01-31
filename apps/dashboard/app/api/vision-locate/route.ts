@@ -68,10 +68,11 @@ export async function POST(request: NextRequest) {
     const supabaseForUpdate = await createClient();
     await supabaseForUpdate
       .from('api_keys')
+      // @ts-expect-error - Supabase type inference breaks after type assertions
       .update({
         usage_count: currentUsageCount + 1,
         last_used_at: new Date().toISOString(),
-      })
+      } as any)
       .eq('id', apiKeyData.id);
 
     const body: VisionLocateRequest = await request.json();
