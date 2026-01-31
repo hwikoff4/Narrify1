@@ -1,9 +1,0 @@
-{
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "cd apps/dashboard && pnpm build",
-  "devCommand": "cd apps/dashboard && pnpm dev",
-  "installCommand": "pnpm install --filter=narrify-dashboard...",
-  "framework": "nextjs",
-  "outputDirectory": "apps/dashboard/.next",
-  "rootDirectory": "apps/dashboard"
-}
