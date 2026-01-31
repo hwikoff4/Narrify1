@@ -1,3 +1,6 @@
 {
-  "buildCommand": "pnpm turbo run build --filter=narrify-dashboard"
+  "buildCommand": "pnpm install && pnpm turbo run build --filter=narrify-dashboard",
+  "outputDirectory": "apps/dashboard/.next",
+  "installCommand": "pnpm install",
+  "framework": "nextjs"
 }
