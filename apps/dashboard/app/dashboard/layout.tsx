@@ -1,5 +1,4 @@
 import { DashboardNav } from '@/components/dashboard-nav';
-import { DemoModeBanner } from '@/components/demo-mode-banner';
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 
@@ -10,17 +9,12 @@ export default async function DashboardLayout({
 }) {
   const supabase = createClient();
 
-  // In demo mode, session check is bypassed
-  const isDemoMode = !process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  if (!isDemoMode) {
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-
-    if (!session) {
-      redirect('/auth/login');
-    }
+  if (!session) {
+    redirect('/auth/login');
   }
 
   return (
@@ -42,7 +36,6 @@ export default async function DashboardLayout({
 
       <DashboardNav />
       <main id="main-content" className="flex-1 overflow-auto relative pt-16 lg:pt-0">
-        <DemoModeBanner />
         {children}
       </main>
     </div>
