@@ -100,10 +100,10 @@ export default function ThemePage() {
     <div className="p-6 sm:p-8 animate-fade-in">
       <div className="max-w-6xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-4xl sm:text-5xl font-display font-bold text-neutral-900 mb-3">
+          <h1 className="text-4xl sm:text-5xl font-display font-bold text-primary mb-3">
             Theme Customization
           </h1>
-          <p className="text-xl text-neutral-600 font-medium">
+          <p className="text-xl text-secondary font-medium">
             Customize colors and appearance of your tours
           </p>
         </div>
@@ -111,17 +111,17 @@ export default function ThemePage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Color Settings */}
           <div className="space-y-6">
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-glass p-6 sm:p-8 border border-neutral-200/50 animate-fade-up">
-              <h2 className="text-2xl sm:text-3xl font-display font-bold text-neutral-900 mb-8">
+            <div className="bg-bg-secondary backdrop-blur-sm rounded-2xl shadow-glass p-6 sm:p-8 border border-border animate-fade-up">
+              <h2 className="text-2xl sm:text-3xl font-display font-bold text-primary mb-8">
                 Color Palette
               </h2>
 
               <div className="space-y-8">
                 <div>
-                  <label className="block text-base font-display font-bold text-neutral-900 mb-2">
+                  <label className="block text-base font-display font-bold text-primary mb-2">
                     Primary Color
                   </label>
-                  <p className="text-sm text-neutral-600 mb-4 font-medium">
+                  <p className="text-sm text-secondary mb-4 font-medium">
                     Used for spotlight borders and highlights
                   </p>
                   <div className="flex items-center gap-4">
@@ -131,7 +131,7 @@ export default function ThemePage() {
                       onChange={(e) =>
                         setTheme({ ...theme, primary: e.target.value })
                       }
-                      className="w-24 h-14 rounded-xl border-2 border-neutral-300 cursor-pointer shadow-sm hover:scale-105 transition-transform"
+                      className="w-24 h-14 rounded-xl border-2 border cursor-pointer shadow-sm hover:scale-105 transition-transform"
                     />
                     <input
                       type="text"
@@ -139,21 +139,21 @@ export default function ThemePage() {
                       onChange={(e) =>
                         setTheme({ ...theme, primary: e.target.value })
                       }
-                      className="flex-1 px-4 py-3 border-2 border-neutral-300 rounded-xl font-mono text-sm font-bold text-neutral-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                      className="flex-1 px-4 py-3 border-2 border rounded-xl font-mono text-sm font-bold text-primary shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all bg-bg-tertiary"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-base font-display font-bold text-neutral-900 mb-2">
+                  <label className="block text-base font-display font-bold text-primary mb-2">
                     Background Overlay
                   </label>
-                  <p className="text-sm text-neutral-600 mb-4 font-medium">
+                  <p className="text-sm text-secondary mb-4 font-medium">
                     Semi-transparent overlay behind the tour
                   </p>
                   <div className="flex items-center gap-4">
                     <div
-                      className="w-24 h-14 rounded-xl border-2 border-neutral-300 shadow-sm"
+                      className="w-24 h-14 rounded-xl border-2 border shadow-sm"
                       style={{ background: theme.background }}
                     />
                     <input
@@ -162,17 +162,17 @@ export default function ThemePage() {
                       onChange={(e) =>
                         setTheme({ ...theme, background: e.target.value })
                       }
-                      className="flex-1 px-4 py-3 border-2 border-neutral-300 rounded-xl font-mono text-sm font-bold text-neutral-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                      className="flex-1 px-4 py-3 border-2 border rounded-xl font-mono text-sm font-bold text-primary shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all bg-bg-tertiary"
                       placeholder="rgba(0, 0, 0, 0.6)"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-base font-display font-bold text-neutral-900 mb-2">
+                  <label className="block text-base font-display font-bold text-primary mb-2">
                     Text Color
                   </label>
-                  <p className="text-sm text-neutral-600 mb-4 font-medium">
+                  <p className="text-sm text-secondary mb-4 font-medium">
                     Caption and UI text color
                   </p>
                   <div className="flex items-center gap-4">
@@ -182,7 +182,7 @@ export default function ThemePage() {
                       onChange={(e) =>
                         setTheme({ ...theme, text: e.target.value })
                       }
-                      className="w-24 h-14 rounded-xl border-2 border-neutral-300 cursor-pointer shadow-sm hover:scale-105 transition-transform"
+                      className="w-24 h-14 rounded-xl border-2 border cursor-pointer shadow-sm hover:scale-105 transition-transform"
                     />
                     <input
                       type="text"
@@ -190,16 +190,16 @@ export default function ThemePage() {
                       onChange={(e) =>
                         setTheme({ ...theme, text: e.target.value })
                       }
-                      className="flex-1 px-4 py-3 border-2 border-neutral-300 rounded-xl font-mono text-sm font-bold text-neutral-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                      className="flex-1 px-4 py-3 border-2 border rounded-xl font-mono text-sm font-bold text-primary shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all bg-bg-tertiary"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-base font-display font-bold text-neutral-900 mb-2">
+                  <label className="block text-base font-display font-bold text-primary mb-2">
                     Accent Color
                   </label>
-                  <p className="text-sm text-neutral-600 mb-4 font-medium">
+                  <p className="text-sm text-secondary mb-4 font-medium">
                     Buttons and interactive elements
                   </p>
                   <div className="flex items-center gap-4">
@@ -209,7 +209,7 @@ export default function ThemePage() {
                       onChange={(e) =>
                         setTheme({ ...theme, accent: e.target.value })
                       }
-                      className="w-24 h-14 rounded-xl border-2 border-neutral-300 cursor-pointer shadow-sm hover:scale-105 transition-transform"
+                      className="w-24 h-14 rounded-xl border-2 border cursor-pointer shadow-sm hover:scale-105 transition-transform"
                     />
                     <input
                       type="text"
@@ -217,7 +217,7 @@ export default function ThemePage() {
                       onChange={(e) =>
                         setTheme({ ...theme, accent: e.target.value })
                       }
-                      className="flex-1 px-4 py-3 border-2 border-neutral-300 rounded-xl font-mono text-sm font-bold text-neutral-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                      className="flex-1 px-4 py-3 border-2 border rounded-xl font-mono text-sm font-bold text-primary shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all bg-bg-tertiary"
                     />
                   </div>
                 </div>
@@ -225,18 +225,18 @@ export default function ThemePage() {
             </div>
 
             {/* Spotlight & Highlight Effects */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-glass p-6 sm:p-8 border border-neutral-200/50 animate-fade-up" style={{ animationDelay: '0.2s' }}>
-              <h2 className="text-2xl sm:text-3xl font-display font-bold text-neutral-900 mb-8">
+            <div className="bg-bg-secondary backdrop-blur-sm rounded-2xl shadow-glass p-6 sm:p-8 border border-border animate-fade-up" style={{ animationDelay: '0.2s' }}>
+              <h2 className="text-2xl sm:text-3xl font-display font-bold text-primary mb-8">
                 Spotlight & Highlight Effects
               </h2>
 
               <div className="space-y-8">
                 {/* Highlight Style */}
                 <div>
-                  <label className="block text-base font-display font-bold text-neutral-900 mb-2">
+                  <label className="block text-base font-display font-bold text-primary mb-2">
                     Highlight Style
                   </label>
-                  <p className="text-sm text-neutral-600 mb-4 font-medium">
+                  <p className="text-sm text-secondary mb-4 font-medium">
                     Choose how the highlighted element appears
                   </p>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -246,8 +246,8 @@ export default function ThemePage() {
                         onClick={() => setTheme({ ...theme, highlightStyle: style })}
                         className={`px-4 py-3 rounded-xl text-sm font-bold transition-all duration-200 ${
                           theme.highlightStyle === style
-                            ? 'bg-gradient-primary text-white shadow-lg'
-                            : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+                            ? 'bg-gradient-teal text-bg-primary shadow-lg'
+                            : 'bg-bg-elevated text-secondary hover:bg-bg-tertiary'
                         }`}
                       >
                         {style.charAt(0).toUpperCase() + style.slice(1)}
@@ -258,10 +258,10 @@ export default function ThemePage() {
 
                 {/* Border Width */}
                 <div>
-                  <label className="block text-base font-display font-bold text-neutral-900 mb-2">
+                  <label className="block text-base font-display font-bold text-primary mb-2">
                     Border Width
                   </label>
-                  <p className="text-sm text-neutral-600 mb-4 font-medium">
+                  <p className="text-sm text-secondary mb-4 font-medium">
                     Thickness of the highlight border ({theme.highlightBorderWidth}px)
                   </p>
                   <input
@@ -272,9 +272,9 @@ export default function ThemePage() {
                     onChange={(e) =>
                       setTheme({ ...theme, highlightBorderWidth: parseInt(e.target.value) })
                     }
-                    className="w-full h-3 bg-neutral-200 rounded-lg appearance-none cursor-pointer slider"
+                    className="w-full h-3 bg-bg-elevated rounded-lg appearance-none cursor-pointer slider"
                   />
-                  <div className="flex justify-between text-xs text-neutral-500 font-medium mt-2">
+                  <div className="flex justify-between text-xs text-tertiary font-medium mt-2">
                     <span>1px</span>
                     <span>10px</span>
                   </div>
@@ -282,10 +282,10 @@ export default function ThemePage() {
 
                 {/* Glow Intensity */}
                 <div>
-                  <label className="block text-base font-display font-bold text-neutral-900 mb-2">
+                  <label className="block text-base font-display font-bold text-primary mb-2">
                     Glow Intensity
                   </label>
-                  <p className="text-sm text-neutral-600 mb-4 font-medium">
+                  <p className="text-sm text-secondary mb-4 font-medium">
                     Strength of the glow effect ({theme.highlightGlowIntensity})
                   </p>
                   <input
@@ -296,9 +296,9 @@ export default function ThemePage() {
                     onChange={(e) =>
                       setTheme({ ...theme, highlightGlowIntensity: parseInt(e.target.value) })
                     }
-                    className="w-full h-3 bg-neutral-200 rounded-lg appearance-none cursor-pointer slider"
+                    className="w-full h-3 bg-bg-elevated rounded-lg appearance-none cursor-pointer slider"
                   />
-                  <div className="flex justify-between text-xs text-neutral-500 font-medium mt-2">
+                  <div className="flex justify-between text-xs text-tertiary font-medium mt-2">
                     <span>None</span>
                     <span>Maximum</span>
                   </div>
@@ -306,10 +306,10 @@ export default function ThemePage() {
 
                 {/* Animation Toggle */}
                 <div>
-                  <label className="block text-base font-display font-bold text-neutral-900 mb-2">
+                  <label className="block text-base font-display font-bold text-primary mb-2">
                     Pulse Animation
                   </label>
-                  <p className="text-sm text-neutral-600 mb-4 font-medium">
+                  <p className="text-sm text-secondary mb-4 font-medium">
                     Subtle pulsing effect on the highlight
                   </p>
                   <button
@@ -321,17 +321,17 @@ export default function ThemePage() {
                     }
                     className={`flex items-center gap-3 px-6 py-3 rounded-xl font-bold transition-all duration-200 ${
                       theme.highlightAnimation === 'pulse'
-                        ? 'bg-gradient-primary text-white shadow-lg'
-                        : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+                        ? 'bg-gradient-teal text-bg-primary shadow-lg'
+                        : 'bg-bg-elevated text-secondary hover:bg-bg-tertiary'
                     }`}
                   >
                     <div className={`w-6 h-6 rounded-lg border-2 transition-all ${
                       theme.highlightAnimation === 'pulse'
-                        ? 'border-white bg-white'
-                        : 'border-neutral-400'
+                        ? 'border-bg-primary bg-bg-primary'
+                        : 'border-border'
                     }`}>
                       {theme.highlightAnimation === 'pulse' && (
-                        <svg className="w-full h-full text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-full h-full text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>
                       )}
@@ -343,18 +343,18 @@ export default function ThemePage() {
             </div>
 
             {/* Background Overlay Effects */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-glass p-6 sm:p-8 border border-neutral-200/50 animate-fade-up" style={{ animationDelay: '0.3s' }}>
-              <h2 className="text-2xl sm:text-3xl font-display font-bold text-neutral-900 mb-8">
+            <div className="bg-bg-secondary backdrop-blur-sm rounded-2xl shadow-glass p-6 sm:p-8 border border-border animate-fade-up" style={{ animationDelay: '0.3s' }}>
+              <h2 className="text-2xl sm:text-3xl font-display font-bold text-primary mb-8">
                 Background Overlay Effects
               </h2>
 
               <div className="space-y-8">
                 {/* Darken Background Toggle */}
                 <div>
-                  <label className="block text-base font-display font-bold text-neutral-900 mb-2">
+                  <label className="block text-base font-display font-bold text-primary mb-2">
                     Darken Background
                   </label>
-                  <p className="text-sm text-neutral-600 mb-4 font-medium">
+                  <p className="text-sm text-secondary mb-4 font-medium">
                     Dim everything except the highlighted element
                   </p>
                   <button
@@ -363,17 +363,17 @@ export default function ThemePage() {
                     }
                     className={`flex items-center gap-3 px-6 py-3 rounded-xl font-bold transition-all duration-200 ${
                       theme.overlayUseDarken
-                        ? 'bg-gradient-primary text-white shadow-lg'
-                        : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+                        ? 'bg-gradient-teal text-bg-primary shadow-lg'
+                        : 'bg-bg-elevated text-secondary hover:bg-bg-tertiary'
                     }`}
                   >
                     <div className={`w-6 h-6 rounded-lg border-2 transition-all ${
                       theme.overlayUseDarken
-                        ? 'border-white bg-white'
-                        : 'border-neutral-400'
+                        ? 'border-bg-primary bg-bg-primary'
+                        : 'border-border'
                     }`}>
                       {theme.overlayUseDarken && (
-                        <svg className="w-full h-full text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-full h-full text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>
                       )}
@@ -385,10 +385,10 @@ export default function ThemePage() {
                 {/* Darken Amount Slider */}
                 {theme.overlayUseDarken && (
                   <div>
-                    <label className="block text-base font-display font-bold text-neutral-900 mb-2">
+                    <label className="block text-base font-display font-bold text-primary mb-2">
                       Darken Amount
                     </label>
-                    <p className="text-sm text-neutral-600 mb-4 font-medium">
+                    <p className="text-sm text-secondary mb-4 font-medium">
                       How much to darken the background ({theme.overlayDarkenAmount}%)
                     </p>
                     <input
@@ -399,9 +399,9 @@ export default function ThemePage() {
                       onChange={(e) =>
                         setTheme({ ...theme, overlayDarkenAmount: parseInt(e.target.value) })
                       }
-                      className="w-full h-3 bg-neutral-200 rounded-lg appearance-none cursor-pointer slider"
+                      className="w-full h-3 bg-bg-elevated rounded-lg appearance-none cursor-pointer slider"
                     />
-                    <div className="flex justify-between text-xs text-neutral-500 font-medium mt-2">
+                    <div className="flex justify-between text-xs text-tertiary font-medium mt-2">
                       <span>0%</span>
                       <span>100%</span>
                     </div>
@@ -410,10 +410,10 @@ export default function ThemePage() {
 
                 {/* Blur Background Toggle */}
                 <div>
-                  <label className="block text-base font-display font-bold text-neutral-900 mb-2">
+                  <label className="block text-base font-display font-bold text-primary mb-2">
                     Blur Background
                   </label>
-                  <p className="text-sm text-neutral-600 mb-4 font-medium">
+                  <p className="text-sm text-secondary mb-4 font-medium">
                     Apply blur effect to non-highlighted areas
                   </p>
                   <button
@@ -422,17 +422,17 @@ export default function ThemePage() {
                     }
                     className={`flex items-center gap-3 px-6 py-3 rounded-xl font-bold transition-all duration-200 ${
                       theme.overlayUseBlur
-                        ? 'bg-gradient-primary text-white shadow-lg'
-                        : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+                        ? 'bg-gradient-teal text-bg-primary shadow-lg'
+                        : 'bg-bg-elevated text-secondary hover:bg-bg-tertiary'
                     }`}
                   >
                     <div className={`w-6 h-6 rounded-lg border-2 transition-all ${
                       theme.overlayUseBlur
-                        ? 'border-white bg-white'
-                        : 'border-neutral-400'
+                        ? 'border-bg-primary bg-bg-primary'
+                        : 'border-border'
                     }`}>
                       {theme.overlayUseBlur && (
-                        <svg className="w-full h-full text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-full h-full text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>
                       )}
@@ -444,10 +444,10 @@ export default function ThemePage() {
                 {/* Blur Amount Slider */}
                 {theme.overlayUseBlur && (
                   <div>
-                    <label className="block text-base font-display font-bold text-neutral-900 mb-2">
+                    <label className="block text-base font-display font-bold text-primary mb-2">
                       Blur Amount
                     </label>
-                    <p className="text-sm text-neutral-600 mb-4 font-medium">
+                    <p className="text-sm text-secondary mb-4 font-medium">
                       Intensity of the blur effect ({theme.overlayBlurAmount}px)
                     </p>
                     <input
@@ -458,9 +458,9 @@ export default function ThemePage() {
                       onChange={(e) =>
                         setTheme({ ...theme, overlayBlurAmount: parseInt(e.target.value) })
                       }
-                      className="w-full h-3 bg-neutral-200 rounded-lg appearance-none cursor-pointer slider"
+                      className="w-full h-3 bg-bg-elevated rounded-lg appearance-none cursor-pointer slider"
                     />
-                    <div className="flex justify-between text-xs text-neutral-500 font-medium mt-2">
+                    <div className="flex justify-between text-xs text-tertiary font-medium mt-2">
                       <span>0px</span>
                       <span>20px</span>
                     </div>
@@ -488,18 +488,18 @@ export default function ThemePage() {
                     overlayUseDarken: true,
                   })
                 }
-                className="px-6 py-3 border-2 border-neutral-300 text-neutral-700 rounded-xl hover:bg-neutral-50 hover:border-neutral-400 transition-all duration-200 font-bold hover:scale-[1.02]"
+                className="px-6 py-3 border-2 border text-secondary rounded-xl hover:bg-bg-tertiary hover:border-accent/30 transition-all duration-200 font-bold hover:scale-[1.02]"
               >
                 Reset to Default
               </button>
               <button
                 onClick={handleSave}
                 disabled={loading}
-                className="px-8 py-3 bg-gradient-primary text-white rounded-xl hover:shadow-glow-lg transition-all duration-300 disabled:opacity-50 font-bold hover:scale-[1.02]"
+                className="px-8 py-3 bg-gradient-teal text-bg-primary rounded-xl hover:shadow-glow-lg transition-all duration-300 disabled:opacity-50 font-bold hover:scale-[1.02]"
               >
                 {loading ? (
                   <span className="flex items-center justify-center gap-2">
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-5 h-5 border-2 border-bg-primary border-t-transparent rounded-full animate-spin"></div>
                     Saving...
                   </span>
                 ) : (
@@ -512,8 +512,8 @@ export default function ThemePage() {
               <div
                 className={`px-6 py-4 rounded-xl shadow-glass animate-fade-down ${
                   message.includes('success')
-                    ? 'bg-gradient-to-r from-success-50 to-success-100 text-success-800 border-2 border-success-300/50'
-                    : 'bg-gradient-to-r from-error-50 to-error-100 text-error-800 border-2 border-error-300/50'
+                    ? 'bg-success-bg text-success border-2 border-success/50'
+                    : 'bg-error-bg text-error border-2 border-error/50'
                 }`}
               >
                 <span className="font-bold">{message}</span>
@@ -522,27 +522,27 @@ export default function ThemePage() {
           </div>
 
           {/* Live Preview */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-glass p-6 sm:p-8 border border-neutral-200/50 animate-fade-up" style={{ animationDelay: '0.1s' }}>
+          <div className="bg-bg-secondary backdrop-blur-sm rounded-2xl shadow-glass p-6 sm:p-8 border border-border animate-fade-up" style={{ animationDelay: '0.1s' }}>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center shadow-lg">
-                <Eye className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 rounded-xl bg-gradient-teal flex items-center justify-center shadow-lg">
+                <Eye className="w-6 h-6 text-bg-primary" />
               </div>
-              <h2 className="text-2xl sm:text-3xl font-display font-bold text-neutral-900">
+              <h2 className="text-2xl sm:text-3xl font-display font-bold text-primary">
                 Live Preview
               </h2>
             </div>
 
             <div
-              className="relative rounded-2xl overflow-hidden border-2 border-neutral-300 shadow-xl"
+              className="relative rounded-2xl overflow-hidden border-2 border shadow-xl"
               style={{ height: '600px' }}
             >
               {/* Mock Page Background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-neutral-50 to-neutral-100 p-8">
-                <div className="bg-white rounded-2xl shadow-glass p-6 mb-4 border border-neutral-200/50">
-                  <h3 className="text-xl font-display font-bold text-neutral-900 mb-3">
+              <div className="absolute inset-0 bg-gradient-to-br from-bg-tertiary to-bg-elevated p-8">
+                <div className="bg-bg-secondary rounded-2xl shadow-glass p-6 mb-4 border border-border">
+                  <h3 className="text-xl font-display font-bold text-primary mb-3">
                     Welcome Dashboard
                   </h3>
-                  <p className="text-neutral-600 font-medium">
+                  <p className="text-secondary font-medium">
                     This is a preview of how your tour will look with the current theme.
                   </p>
                 </div>
@@ -563,7 +563,7 @@ export default function ThemePage() {
 
               {/* Spotlight */}
               <div
-                className={`absolute top-20 left-8 right-8 rounded-2xl p-6 bg-white shadow-2xl transition-all duration-300 ${
+                className={`absolute top-20 left-8 right-8 rounded-2xl p-6 bg-bg-secondary shadow-2xl transition-all duration-300 ${
                   theme.highlightAnimation === 'pulse' ? 'animate-pulse-slow' : ''
                 }`}
                 style={{
@@ -592,10 +592,10 @@ export default function ThemePage() {
                         }`,
                 }}
               >
-                <h3 className="text-xl font-display font-bold text-neutral-900 mb-3">
+                <h3 className="text-xl font-display font-bold text-primary mb-3">
                   Highlighted Element
                 </h3>
-                <p className="text-neutral-600 font-medium">
+                <p className="text-secondary font-medium">
                   This element is being highlighted in the tour
                 </p>
               </div>

@@ -105,27 +105,27 @@ export default function AISettingsPage() {
     <div className="p-6 sm:p-8 animate-fade-in">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-4xl sm:text-5xl font-display font-bold text-neutral-900 mb-3">
+          <h1 className="text-4xl sm:text-5xl font-display font-bold text-primary mb-3">
             AI Settings
           </h1>
-          <p className="text-xl text-neutral-600 font-medium">
+          <p className="text-xl text-secondary font-medium">
             Configure the vision-aware AI conversation system
           </p>
         </div>
 
         <div className="space-y-6">
           {/* Enable/Disable */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-glass p-6 sm:p-8 border border-neutral-200/50 animate-fade-up">
+          <div className="bg-bg-secondary backdrop-blur-sm rounded-2xl shadow-glass p-6 sm:p-8 border border-border animate-fade-up">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center shadow-lg flex-shrink-0">
-                  <Bot className="w-7 h-7 text-white" />
+                <div className="w-14 h-14 rounded-2xl bg-gradient-teal flex items-center justify-center shadow-lg flex-shrink-0">
+                  <Bot className="w-7 h-7 text-bg-primary" />
                 </div>
                 <div>
-                  <h2 className="text-xl sm:text-2xl font-display font-bold text-neutral-900">
+                  <h2 className="text-xl sm:text-2xl font-display font-bold text-primary">
                     Enable AI Conversation
                   </h2>
-                  <p className="text-sm sm:text-base text-neutral-600 mt-1 font-medium">
+                  <p className="text-sm sm:text-base text-secondary mt-1 font-medium">
                     Allow users to ask questions during tours
                   </p>
                 </div>
@@ -139,23 +139,23 @@ export default function AISettingsPage() {
                   }
                   className="sr-only peer"
                 />
-                <div className="w-14 h-7 bg-neutral-500 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300/50 rounded-full peer peer-checked:after:translate-x-7 peer-checked:after:border-white after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-white after:border-neutral-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-success-500 peer-checked:to-success-600 shadow-sm"></div>
+                <div className="w-14 h-7 bg-bg-elevated peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-accent/30 rounded-full peer peer-checked:after:translate-x-7 peer-checked:after:border-bg-primary after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-bg-primary after:border-border after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-teal shadow-sm"></div>
               </label>
             </div>
           </div>
 
           {/* Agent Configuration */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-glass p-6 sm:p-8 border border-neutral-200/50 animate-fade-up" style={{ animationDelay: '0.1s' }}>
-            <h2 className="text-2xl sm:text-3xl font-display font-bold text-neutral-900 mb-8">
+          <div className="bg-bg-secondary backdrop-blur-sm rounded-2xl shadow-glass p-6 sm:p-8 border border-border animate-fade-up" style={{ animationDelay: '0.1s' }}>
+            <h2 className="text-2xl sm:text-3xl font-display font-bold text-primary mb-8">
               Agent Configuration
             </h2>
 
             <div className="space-y-8">
               <div>
-                <label className="block text-base font-display font-bold text-neutral-900 mb-2">
+                <label className="block text-base font-display font-bold text-primary mb-2">
                   Agent Name
                 </label>
-                <p className="text-sm text-neutral-600 mb-4 font-medium">
+                <p className="text-sm text-secondary mb-4 font-medium">
                   The name users will see when interacting with the AI
                 </p>
                 <input
@@ -164,16 +164,16 @@ export default function AISettingsPage() {
                   onChange={(e) =>
                     setSettings({ ...settings, agentName: e.target.value })
                   }
-                  className="w-full px-4 py-3 border-2 border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-neutral-900 font-medium shadow-sm"
+                  className="w-full px-4 py-3 border-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all text-primary font-medium shadow-sm bg-bg-tertiary"
                   placeholder="Narrify"
                 />
               </div>
 
               <div>
-                <label className="block text-base font-display font-bold text-neutral-900 mb-2">
+                <label className="block text-base font-display font-bold text-primary mb-2">
                   Agent Personality (System Prompt)
                 </label>
-                <p className="text-sm text-neutral-600 mb-4 font-medium">
+                <p className="text-sm text-secondary mb-4 font-medium">
                   Instructions for how the AI should behave and respond
                 </p>
                 <textarea
@@ -185,14 +185,14 @@ export default function AISettingsPage() {
                     })
                   }
                   rows={6}
-                  className="w-full px-4 py-3 border-2 border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all font-mono text-sm text-neutral-900 shadow-sm"
+                  className="w-full px-4 py-3 border-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all font-mono text-sm text-primary shadow-sm bg-bg-tertiary"
                   placeholder="You are a helpful tour guide..."
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-base font-display font-bold text-neutral-900 mb-2">
+                  <label className="block text-base font-display font-bold text-primary mb-2">
                     Button Label
                   </label>
                   <input
@@ -201,13 +201,13 @@ export default function AISettingsPage() {
                     onChange={(e) =>
                       setSettings({ ...settings, buttonLabel: e.target.value })
                     }
-                    className="w-full px-4 py-3 border-2 border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-neutral-900 font-medium shadow-sm"
+                    className="w-full px-4 py-3 border-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all text-primary font-medium shadow-sm bg-bg-tertiary"
                     placeholder="Ask Narrify"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-base font-display font-bold text-neutral-900 mb-2">
+                  <label className="block text-base font-display font-bold text-primary mb-2">
                     Button Position
                   </label>
                   <select
@@ -218,7 +218,7 @@ export default function AISettingsPage() {
                         buttonPosition: e.target.value as any,
                       })
                     }
-                    className="w-full px-4 py-3 border-2 border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-neutral-900 font-medium shadow-sm"
+                    className="w-full px-4 py-3 border-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all text-primary font-medium shadow-sm bg-bg-tertiary"
                   >
                     <option value="bottom-right">Bottom Right</option>
                     <option value="bottom-left">Bottom Left</option>
@@ -230,18 +230,18 @@ export default function AISettingsPage() {
           </div>
 
           {/* Vision Settings */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-glass p-6 sm:p-8 border border-neutral-200/50 animate-fade-up" style={{ animationDelay: '0.2s' }}>
-            <h2 className="text-2xl sm:text-3xl font-display font-bold text-neutral-900 mb-8">
+          <div className="bg-bg-secondary backdrop-blur-sm rounded-2xl shadow-glass p-6 sm:p-8 border border-border animate-fade-up" style={{ animationDelay: '0.2s' }}>
+            <h2 className="text-2xl sm:text-3xl font-display font-bold text-primary mb-8">
               Vision-Aware AI
             </h2>
 
             <div className="space-y-5">
-              <div className="flex items-center justify-between gap-4 p-5 sm:p-6 bg-gradient-to-br from-primary-50 to-primary-100 border-2 border-primary-200/50 rounded-2xl shadow-sm hover:shadow-md transition-all">
+              <div className="flex items-center justify-between gap-4 p-5 sm:p-6 bg-accent/10 border-2 border-accent/30 rounded-2xl shadow-sm hover:shadow-md transition-all">
                 <div>
-                  <h3 className="text-lg font-display font-bold text-primary-900">
+                  <h3 className="text-lg font-display font-bold text-primary">
                     Enable Vision Capture
                   </h3>
-                  <p className="text-sm text-primary-700 mt-1 font-medium">
+                  <p className="text-sm text-secondary mt-1 font-medium">
                     AI can see what's on the user's screen
                   </p>
                 </div>
@@ -257,16 +257,16 @@ export default function AISettingsPage() {
                     }
                     className="sr-only peer"
                   />
-                  <div className="w-14 h-7 bg-neutral-500 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300/50 rounded-full peer peer-checked:after:translate-x-7 peer-checked:after:border-white after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-white after:border-neutral-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-primary-500 peer-checked:to-primary-600 shadow-sm"></div>
+                  <div className="w-14 h-7 bg-bg-elevated peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-accent/30 rounded-full peer peer-checked:after:translate-x-7 peer-checked:after:border-bg-primary after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-bg-primary after:border-border after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-teal shadow-sm"></div>
                 </label>
               </div>
 
-              <div className="flex items-center justify-between gap-4 p-5 sm:p-6 bg-neutral-50/80 border border-neutral-200/50 rounded-2xl shadow-sm hover:shadow-md transition-all">
+              <div className="flex items-center justify-between gap-4 p-5 sm:p-6 bg-bg-tertiary border border-border rounded-2xl shadow-sm hover:shadow-md transition-all">
                 <div>
-                  <h3 className="text-lg font-display font-bold text-neutral-900">
+                  <h3 className="text-lg font-display font-bold text-primary">
                     Include DOM Structure
                   </h3>
-                  <p className="text-sm text-neutral-600 mt-1 font-medium">
+                  <p className="text-sm text-secondary mt-1 font-medium">
                     Send HTML structure along with screenshot
                   </p>
                 </div>
@@ -282,16 +282,16 @@ export default function AISettingsPage() {
                     }
                     className="sr-only peer"
                   />
-                  <div className="w-14 h-7 bg-neutral-500 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300/50 rounded-full peer peer-checked:after:translate-x-7 peer-checked:after:border-white after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-white after:border-neutral-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-success-500 peer-checked:to-success-600 shadow-sm"></div>
+                  <div className="w-14 h-7 bg-bg-elevated peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-accent/30 rounded-full peer peer-checked:after:translate-x-7 peer-checked:after:border-bg-primary after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-bg-primary after:border-border after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-teal shadow-sm"></div>
                 </label>
               </div>
 
-              <div className="flex items-center justify-between gap-4 p-5 sm:p-6 bg-neutral-50/80 border border-neutral-200/50 rounded-2xl shadow-sm hover:shadow-md transition-all">
+              <div className="flex items-center justify-between gap-4 p-5 sm:p-6 bg-bg-tertiary border border-border rounded-2xl shadow-sm hover:shadow-md transition-all">
                 <div>
-                  <h3 className="text-lg font-display font-bold text-neutral-900">
+                  <h3 className="text-lg font-display font-bold text-primary">
                     Show Conversation Transcript
                   </h3>
-                  <p className="text-sm text-neutral-600 mt-1 font-medium">
+                  <p className="text-sm text-secondary mt-1 font-medium">
                     Display text of questions and answers
                   </p>
                 </div>
@@ -307,16 +307,16 @@ export default function AISettingsPage() {
                     }
                     className="sr-only peer"
                   />
-                  <div className="w-14 h-7 bg-neutral-500 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300/50 rounded-full peer peer-checked:after:translate-x-7 peer-checked:after:border-white after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-white after:border-neutral-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-success-500 peer-checked:to-success-600 shadow-sm"></div>
+                  <div className="w-14 h-7 bg-bg-elevated peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-accent/30 rounded-full peer peer-checked:after:translate-x-7 peer-checked:after:border-bg-primary after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-bg-primary after:border-border after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-teal shadow-sm"></div>
                 </label>
               </div>
 
-              <div className="flex items-center justify-between gap-4 p-5 sm:p-6 bg-neutral-50/80 border border-neutral-200/50 rounded-2xl shadow-sm hover:shadow-md transition-all">
+              <div className="flex items-center justify-between gap-4 p-5 sm:p-6 bg-bg-tertiary border border-border rounded-2xl shadow-sm hover:shadow-md transition-all">
                 <div>
-                  <h3 className="text-lg font-display font-bold text-neutral-900">
+                  <h3 className="text-lg font-display font-bold text-primary">
                     Text Input Fallback
                   </h3>
-                  <p className="text-sm text-neutral-600 mt-1 font-medium">
+                  <p className="text-sm text-secondary mt-1 font-medium">
                     Allow typing when microphone unavailable
                   </p>
                 </div>
@@ -332,37 +332,37 @@ export default function AISettingsPage() {
                     }
                     className="sr-only peer"
                   />
-                  <div className="w-14 h-7 bg-neutral-500 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300/50 rounded-full peer peer-checked:after:translate-x-7 peer-checked:after:border-white after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-white after:border-neutral-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-success-500 peer-checked:to-success-600 shadow-sm"></div>
+                  <div className="w-14 h-7 bg-bg-elevated peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-accent/30 rounded-full peer peer-checked:after:translate-x-7 peer-checked:after:border-bg-primary after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-bg-primary after:border-border after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-teal shadow-sm"></div>
                 </label>
               </div>
             </div>
           </div>
 
           {/* Cost Info */}
-          <div className="bg-gradient-to-br from-accent-50 to-primary-50 border-2 border-accent-200/50 rounded-2xl p-6 sm:p-8 shadow-glass animate-fade-up" style={{ animationDelay: '0.3s' }}>
+          <div className="bg-accent/10 border-2 border-accent/30 rounded-2xl p-6 sm:p-8 shadow-glass animate-fade-up" style={{ animationDelay: '0.3s' }}>
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center shadow-lg flex-shrink-0">
-                <MessageCircle className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 rounded-xl bg-gradient-teal flex items-center justify-center shadow-lg flex-shrink-0">
+                <MessageCircle className="w-6 h-6 text-bg-primary" />
               </div>
               <div>
-                <h3 className="text-xl font-display font-bold text-accent-900 mb-4">
+                <h3 className="text-xl font-display font-bold text-primary mb-4">
                   Vision-Aware AI Costs
                 </h3>
-                <div className="text-base text-accent-800 space-y-2 font-medium">
+                <div className="text-base text-secondary space-y-2 font-medium">
                   <p className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-600"></span>
-                    Screenshot capture: <span className="font-bold text-success-700">Free</span> (browser-based)
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
+                    Screenshot capture: <span className="font-bold text-success">Free</span> (browser-based)
                   </p>
                   <p className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-600"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
                     Claude Vision API: <span className="font-bold">~$0.01</span> per question
                   </p>
                   <p className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-600"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
                     ElevenLabs TTS: <span className="font-bold">~$0.03</span> per response
                   </p>
-                  <div className="mt-4 pt-4 border-t-2 border-accent-200">
-                    <p className="text-lg font-display font-bold text-accent-900">
+                  <div className="mt-4 pt-4 border-t-2 border-accent/30">
+                    <p className="text-lg font-display font-bold text-primary">
                       Total: ~$0.04 per Q&A
                     </p>
                   </div>
@@ -376,11 +376,11 @@ export default function AISettingsPage() {
             <button
               onClick={handleSave}
               disabled={loading}
-              className="px-8 py-3 bg-gradient-primary text-white rounded-xl hover:shadow-glow-lg transition-all duration-300 disabled:opacity-50 font-bold hover:scale-[1.02]"
+              className="px-8 py-3 bg-gradient-teal text-bg-primary rounded-xl hover:shadow-glow-lg transition-all duration-300 disabled:opacity-50 font-bold hover:scale-[1.02]"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-5 h-5 border-2 border-bg-primary border-t-transparent rounded-full animate-spin"></div>
                   Saving...
                 </span>
               ) : (
@@ -393,8 +393,8 @@ export default function AISettingsPage() {
             <div
               className={`px-6 py-4 rounded-xl shadow-glass animate-fade-down ${
                 message.includes('success')
-                  ? 'bg-gradient-to-r from-success-50 to-success-100 text-success-800 border-2 border-success-300/50'
-                  : 'bg-gradient-to-r from-error-50 to-error-100 text-error-800 border-2 border-error-300/50'
+                  ? 'bg-success-bg text-success border-2 border-success/50'
+                  : 'bg-error-bg text-error border-2 border-error/50'
               }`}
             >
               <span className="font-bold">{message}</span>

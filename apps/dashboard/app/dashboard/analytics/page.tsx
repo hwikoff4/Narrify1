@@ -175,8 +175,8 @@ export default function AnalyticsPage() {
       <div className="p-6 sm:p-8 animate-fade-in">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center gap-3">
-            <div className="w-5 h-5 border-2 border-primary-300 border-t-primary-600 rounded-full animate-spin" />
-            <p className="text-neutral-600 font-medium">Loading analytics...</p>
+            <div className="w-5 h-5 border-2 border-accent/30 border-t-accent rounded-full animate-spin" />
+            <p className="text-secondary font-medium">Loading analytics...</p>
           </div>
         </div>
       </div>
@@ -189,21 +189,21 @@ export default function AnalyticsPage() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-display font-bold text-neutral-900 mb-2">
+            <h1 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-2">
               Analytics
             </h1>
-            <p className="text-lg text-neutral-600">
+            <p className="text-lg text-secondary">
               Track tour performance and user engagement
             </p>
           </div>
 
           {/* Date Range Selector */}
-          <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-xl border border-neutral-200/50 shadow-glass px-4 py-2.5">
-            <Calendar className="w-5 h-5 text-primary-600" />
+          <div className="flex items-center gap-2 bg-bg-secondary backdrop-blur-sm rounded-xl border border-border shadow-glass px-4 py-2.5">
+            <Calendar className="w-5 h-5 text-accent" />
             <select
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
-              className="bg-transparent font-semibold text-neutral-900 focus:outline-none cursor-pointer"
+              className="bg-transparent font-semibold text-primary focus:outline-none cursor-pointer"
             >
               <option value="7d">Last 7 days</option>
               <option value="14d">Last 14 days</option>
@@ -215,55 +215,55 @@ export default function AnalyticsPage() {
 
         {/* Summary Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="group relative bg-white/80 backdrop-blur-sm rounded-2xl border border-neutral-200/50 shadow-glass hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden animate-fade-up p-6">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary-50 to-primary-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="group relative bg-bg-secondary backdrop-blur-sm rounded-2xl border border-border shadow-glass hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden animate-fade-up p-6">
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative">
               <div className="flex items-start justify-between mb-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                  <Users className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 rounded-xl bg-gradient-teal flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <Users className="w-6 h-6 text-bg-primary" />
                 </div>
               </div>
-              <p className="text-sm font-semibold text-neutral-600 mb-1">Total Views</p>
-              <p className="text-3xl font-display font-bold text-neutral-900">{totalViews}</p>
+              <p className="text-sm font-semibold text-secondary mb-1">Total Views</p>
+              <p className="text-3xl font-display font-bold text-primary">{totalViews}</p>
             </div>
           </div>
 
-          <div className="group relative bg-white/80 backdrop-blur-sm rounded-2xl border border-neutral-200/50 shadow-glass hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden animate-fade-up p-6" style={{ animationDelay: '0.1s' }}>
-            <div className="absolute inset-0 bg-gradient-to-br from-success-50 to-success-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="group relative bg-bg-secondary backdrop-blur-sm rounded-2xl border border-border shadow-glass hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden animate-fade-up p-6" style={{ animationDelay: '0.1s' }}>
+            <div className="absolute inset-0 bg-gradient-to-br from-success-bg/50 to-success-bg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative">
               <div className="flex items-start justify-between mb-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-success-500 to-success-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                  <TrendingUp className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 rounded-xl bg-success flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <TrendingUp className="w-6 h-6 text-bg-primary" />
                 </div>
               </div>
-              <p className="text-sm font-semibold text-neutral-600 mb-1">Completions</p>
-              <p className="text-3xl font-display font-bold text-neutral-900">{totalCompletions}</p>
+              <p className="text-sm font-semibold text-secondary mb-1">Completions</p>
+              <p className="text-3xl font-display font-bold text-primary">{totalCompletions}</p>
             </div>
           </div>
 
-          <div className="group relative bg-white/80 backdrop-blur-sm rounded-2xl border border-neutral-200/50 shadow-glass hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden animate-fade-up p-6" style={{ animationDelay: '0.2s' }}>
-            <div className="absolute inset-0 bg-gradient-to-br from-accent-50 to-accent-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="group relative bg-bg-secondary backdrop-blur-sm rounded-2xl border border-border shadow-glass hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden animate-fade-up p-6" style={{ animationDelay: '0.2s' }}>
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative">
               <div className="flex items-start justify-between mb-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                  <MessageCircle className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 rounded-xl bg-gradient-teal flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <MessageCircle className="w-6 h-6 text-bg-primary" />
                 </div>
               </div>
-              <p className="text-sm font-semibold text-neutral-600 mb-1">Questions</p>
-              <p className="text-3xl font-display font-bold text-neutral-900">{totalQuestions}</p>
+              <p className="text-sm font-semibold text-secondary mb-1">Questions</p>
+              <p className="text-3xl font-display font-bold text-primary">{totalQuestions}</p>
             </div>
           </div>
 
-          <div className="group relative bg-white/80 backdrop-blur-sm rounded-2xl border border-neutral-200/50 shadow-glass hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden animate-fade-up p-6" style={{ animationDelay: '0.3s' }}>
-            <div className="absolute inset-0 bg-gradient-to-br from-warning-50 to-warning-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="group relative bg-bg-secondary backdrop-blur-sm rounded-2xl border border-border shadow-glass hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden animate-fade-up p-6" style={{ animationDelay: '0.3s' }}>
+            <div className="absolute inset-0 bg-gradient-to-br from-warning-bg/50 to-warning-bg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative">
               <div className="flex items-start justify-between mb-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-warning-500 to-warning-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                  <TrendingUp className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 rounded-xl bg-warning flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <TrendingUp className="w-6 h-6 text-bg-primary" />
                 </div>
               </div>
-              <p className="text-sm font-semibold text-neutral-600 mb-1">Avg Completion</p>
-              <p className="text-3xl font-display font-bold text-neutral-900">
+              <p className="text-sm font-semibold text-secondary mb-1">Avg Completion</p>
+              <p className="text-3xl font-display font-bold text-primary">
                 {(avgCompletionRate * 100).toFixed(1)}%
               </p>
             </div>
@@ -271,8 +271,8 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Time Series Chart */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-neutral-200/50 shadow-glass p-6 sm:p-8 mb-8">
-          <h2 className="text-2xl font-display font-bold text-neutral-900 mb-6">
+        <div className="bg-bg-secondary backdrop-blur-sm rounded-2xl border border-border shadow-glass p-6 sm:p-8 mb-8">
+          <h2 className="text-2xl font-display font-bold text-primary mb-6">
             Engagement Over Time
           </h2>
 
@@ -319,8 +319,8 @@ export default function AnalyticsPage() {
         {/* Tour Performance */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Bar Chart */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-neutral-200/50 shadow-glass p-6">
-            <h2 className="text-xl font-display font-bold text-neutral-900 mb-6">
+          <div className="bg-bg-secondary backdrop-blur-sm rounded-2xl border border-border shadow-glass p-6">
+            <h2 className="text-xl font-display font-bold text-primary mb-6">
               Tour Performance
             </h2>
 
@@ -346,8 +346,8 @@ export default function AnalyticsPage() {
           </div>
 
           {/* Pie Chart */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-neutral-200/50 shadow-glass p-6">
-            <h2 className="text-xl font-display font-bold text-neutral-900 mb-6">
+          <div className="bg-bg-secondary backdrop-blur-sm rounded-2xl border border-border shadow-glass p-6">
+            <h2 className="text-xl font-display font-bold text-primary mb-6">
               Views by Tour
             </h2>
 
@@ -382,9 +382,9 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Tour Detailed Stats */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-neutral-200/50 shadow-glass overflow-hidden">
-          <div className="p-6 border-b border-neutral-200/50">
-            <h2 className="text-2xl font-display font-bold text-neutral-900">
+        <div className="bg-bg-secondary backdrop-blur-sm rounded-2xl border border-border shadow-glass overflow-hidden">
+          <div className="p-6 border-b border-border">
+            <h2 className="text-2xl font-display font-bold text-primary">
               Tour Details
             </h2>
           </div>
@@ -392,48 +392,48 @@ export default function AnalyticsPage() {
           {tourPerformance.length > 0 ? (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-neutral-50/50">
+                <thead className="bg-bg-tertiary">
                   <tr>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-neutral-600 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-secondary uppercase tracking-wider">
                       Tour Name
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-neutral-600 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-secondary uppercase tracking-wider">
                       Views
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-neutral-600 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-secondary uppercase tracking-wider">
                       Completions
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-neutral-600 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-secondary uppercase tracking-wider">
                       Questions
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-neutral-600 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-secondary uppercase tracking-wider">
                       Completion Rate
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-neutral-200/50">
+                <tbody className="divide-y divide-border">
                   {tourPerformance.map((tour, index) => (
-                    <tr key={index} className="hover:bg-neutral-50/50 transition-colors duration-150">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-neutral-900">
+                    <tr key={index} className="hover:bg-bg-tertiary transition-colors duration-150">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-primary">
                         {tour.name}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-700 font-medium">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary font-medium">
                         {tour.views}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-700 font-medium">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary font-medium">
                         {tour.completions}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-700 font-medium">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary font-medium">
                         {tour.questions}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm">
                         <span
                           className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${
                             tour.completionRate > 0.7
-                              ? 'bg-success-100 text-success-800'
+                              ? 'bg-success-bg text-success'
                               : tour.completionRate > 0.4
-                              ? 'bg-warning-100 text-warning-800'
-                              : 'bg-error-100 text-error-800'
+                              ? 'bg-warning-bg text-warning'
+                              : 'bg-error-bg text-error'
                           }`}
                         >
                           {(tour.completionRate * 100).toFixed(1)}%
