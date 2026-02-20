@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import Link from 'next/link';
-import { Sparkles, ArrowRight, AlertCircle, CheckCircle2, ArrowLeft } from 'lucide-react';
+import { Sparkles, ArrowRight, AlertCircle, CheckCircle2, ArrowLeft, Mail } from 'lucide-react';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -20,7 +20,7 @@ export default function ForgotPasswordPage() {
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/auth/reset-password`,
+        redirectTo: `${window.location.origin}/auth/callback?next=/auth/reset-password`,
       });
 
       if (error) throw error;
@@ -34,32 +34,34 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-primary-50/30 relative overflow-hidden flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary-200/20 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent-200/20 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }} />
+    <main className="min-h-screen bg-bg-primary relative overflow-hidden flex items-center justify-center py-12 px-4">
+      {/* Background Effects */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute inset-0 grid-pattern opacity-30" />
+        <div className="absolute top-[-200px] left-[-200px] w-[600px] h-[600px] bg-accent rounded-full blur-[128px] opacity-20" />
+        <div className="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] bg-violet rounded-full blur-[128px] opacity-20" />
       </div>
 
       {/* Auth Card */}
-      <div className="relative w-full max-w-md">
-        <div className="relative bg-white/80 backdrop-blur-sm rounded-3xl border border-neutral-200/50 shadow-glass p-8 sm:p-10 animate-scale-in">
+      <div className="relative w-full max-w-md animate-scale-in">
+        {/* Glow effect */}
+        <div className="absolute -inset-1 bg-gradient-to-r from-accent/20 via-violet/20 to-accent/20 rounded-3xl blur-xl opacity-50" />
+
+        <div className="relative bg-bg-secondary/90 backdrop-blur-xl rounded-3xl border border-border p-8 sm:p-10">
           {/* Logo */}
-          <Link href="/" className="flex items-center justify-center gap-2 mb-8">
-            <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center shadow-glow">
-              <Sparkles className="w-5 h-5 text-white" />
+          <Link href="/" className="flex items-center justify-center gap-3 mb-10">
+            <div className="w-12 h-12 rounded-xl bg-gradient-teal flex items-center justify-center shadow-glow">
+              <Sparkles className="w-6 h-6 text-bg-primary" />
             </div>
-            <span className="text-2xl font-display font-bold bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">
-              Narrify
-            </span>
+            <span className="text-3xl font-bold text-text-primary">Narrify</span>
           </Link>
 
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-display font-bold text-neutral-900 mb-2">
+            <h1 className="text-3xl font-bold text-text-primary mb-2">
               Reset password
             </h1>
-            <p className="text-neutral-600">
+            <p className="text-text-secondary">
               Enter your email to receive a password reset link
             </p>
           </div>
@@ -68,51 +70,54 @@ export default function ForgotPasswordPage() {
           <form className="space-y-6" onSubmit={handleResetPassword}>
             {/* Error Alert */}
             {error && (
-              <div className="bg-error-50 border border-error-200/50 rounded-xl p-4 animate-fade-down">
+              <div className="bg-error-bg border border-error/30 rounded-xl p-4 animate-fade-in">
                 <div className="flex items-start gap-3">
-                  <AlertCircle className="w-5 h-5 text-error-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-error-800 font-medium">{error}</p>
+                  <AlertCircle className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-error font-medium">{error}</p>
                 </div>
               </div>
             )}
 
             {/* Success Alert */}
             {message && (
-              <div className="bg-success-50 border border-success-200/50 rounded-xl p-4 animate-fade-down">
+              <div className="bg-accent/10 border border-accent/30 rounded-xl p-4 animate-fade-in">
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-success-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-success-800 font-medium">{message}</p>
+                  <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-accent font-medium">{message}</p>
                 </div>
               </div>
             )}
 
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-semibold text-neutral-900 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-text-secondary mb-2">
                 Email address
               </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl shadow-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
-                placeholder="you@company.com"
-              />
+              <div className="relative">
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-tertiary" />
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="input pl-12"
+                  placeholder="you@company.com"
+                />
+              </div>
             </div>
 
             {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}
-              className="group w-full px-6 py-3.5 bg-gradient-primary text-white rounded-xl font-semibold shadow-lg hover:shadow-glow-lg transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
+              className="btn-primary w-full py-4 text-lg flex items-center justify-center gap-3 group disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="w-5 h-5 border-2 border-bg-primary/30 border-t-bg-primary rounded-full animate-spin" />
                   <span>Sending...</span>
                 </>
               ) : (
@@ -128,7 +133,7 @@ export default function ForgotPasswordPage() {
           <div className="mt-8 text-center">
             <Link
               href="/auth/login"
-              className="inline-flex items-center gap-2 font-semibold text-primary-600 hover:text-primary-700 transition-colors"
+              className="inline-flex items-center gap-2 font-semibold text-accent hover:text-accent-light transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back to sign in</span>

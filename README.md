@@ -69,10 +69,17 @@ narrify/
 │           └── types.ts
 └── apps/
     └── dashboard/        # Next.js dashboard
+        ├── middleware.ts  # Session refresh + route protection
         ├── app/
         │   ├── api/
         │   │   ├── narrify-ai/    # Claude Vision endpoint
         │   │   └── narrify-voice/ # ElevenLabs TTS endpoint
+        │   ├── auth/
+        │   │   ├── login/             # Email/password + social login
+        │   │   ├── signup/            # Registration with password strength
+        │   │   ├── forgot-password/   # Email-based password reset
+        │   │   ├── reset-password/    # Set new password
+        │   │   └── callback/          # OAuth & email confirmation handler
         │   └── page.tsx
         ├── lib/
         │   └── supabase/
@@ -397,8 +404,8 @@ Compare to ElevenLabs Agent: ~$0.10+ per minute
 - [x] Database schema
 - [x] Monorepo structure
 
-### Phase 2: Dashboard (TODO)
-- [ ] Authentication UI
+### Phase 2: Dashboard (In Progress)
+- [x] Authentication UI
 - [ ] Tour Builder
 - [ ] Theme Editor
 - [ ] AI Settings
