@@ -482,11 +482,11 @@ export default function TourPreviewPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-blue-50">
-        <div className="text-center bg-white rounded-xl shadow-xl p-12 border-2 border-primary-200">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary-600 mx-auto mb-6"></div>
-          <p className="text-lg text-gray-700 font-medium">✨ Loading your tour preview...</p>
-          <p className="text-sm text-gray-500 mt-2">Just a moment!</p>
+      <div className="min-h-screen flex items-center justify-center bg-bg-primary">
+        <div className="text-center bg-bg-secondary rounded-xl shadow-xl p-12 border border-border">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-accent mx-auto mb-6"></div>
+          <p className="text-lg text-text-secondary font-medium">✨ Loading your tour preview...</p>
+          <p className="text-sm text-text-tertiary mt-2">Just a moment!</p>
         </div>
       </div>
     );
@@ -494,16 +494,16 @@ export default function TourPreviewPage() {
 
   if (error || !tour) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-blue-50 p-8">
-        <div className="text-center bg-white rounded-xl shadow-xl p-12 border-2 border-red-300 max-w-md">
+      <div className="min-h-screen flex items-center justify-center bg-bg-primary p-8">
+        <div className="text-center bg-bg-secondary rounded-xl shadow-xl p-12 border border-error/30 max-w-md">
           <div className="text-6xl mb-4">😕</div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">Oops! Can't Load This Tour</h2>
-          <p className="text-gray-600 mb-6">
+          <h2 className="text-2xl font-bold text-text-primary mb-3">Oops! Can't Load This Tour</h2>
+          <p className="text-text-secondary mb-6">
             {error || "We couldn't find this tour. It might have been deleted or you don't have permission to view it."}
           </p>
           <Link
             href="/dashboard/tours"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition font-semibold shadow-md"
+            className="inline-flex items-center gap-2 px-6 py-3 btn-primary transition font-semibold shadow-md"
           >
             ← Back to All Tours
           </Link>
@@ -513,22 +513,22 @@ export default function TourPreviewPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-bg-primary flex flex-col">
       {/* Completion Celebration Modal */}
       {showCompletion && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 animate-fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl p-12 max-w-md mx-4 text-center transform animate-scale-in">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in">
+          <div className="bg-bg-secondary rounded-2xl shadow-2xl p-12 border border-border max-w-md mx-4 text-center transform animate-scale-in">
             <div className="text-7xl mb-6 animate-bounce">🎉</div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">
+            <h2 className="text-3xl font-bold text-text-primary mb-3">
               You Did It!
             </h2>
-            <p className="text-lg text-gray-600 mb-8">
+            <p className="text-lg text-text-secondary mb-8">
               You've completed the entire tour! Your users will love this! 🚀
             </p>
             <div className="flex gap-4">
               <button
                 onClick={() => setShowCompletion(false)}
-                className="flex-1 px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition font-semibold"
+                className="flex-1 px-6 py-3 bg-bg-tertiary text-text-primary rounded-lg hover:bg-bg-elevated transition font-semibold"
               >
                 Close
               </button>
@@ -537,7 +537,7 @@ export default function TourPreviewPage() {
                   setShowCompletion(false);
                   restartTour();
                 }}
-                className="flex-1 px-6 py-3 bg-gradient-to-r from-primary-600 to-blue-600 text-white rounded-lg hover:from-primary-700 hover:to-blue-700 transition font-semibold shadow-md"
+                className="flex-1 px-6 py-3 btn-primary transition font-semibold shadow-md"
               >
                 🔄 Watch Again
               </button>
@@ -547,21 +547,21 @@ export default function TourPreviewPage() {
       )}
 
       {/* Header */}
-      <div className="bg-gradient-to-r from-primary-600 to-blue-600 border-b-4 border-primary-700 px-6 py-4 shadow-lg">
+      <div className="bg-bg-secondary/90 backdrop-blur-xl border-b border-border px-6 py-4 shadow-lg">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link
               href={`/dashboard/tours/${tour.id}`}
-              className="text-white hover:text-primary-100 transition"
+              className="text-text-secondary hover:text-text-primary transition"
               title="Back to tour details"
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
             <div>
-              <h1 className="text-lg font-bold text-white flex items-center gap-2">
+              <h1 className="text-lg font-bold text-text-primary flex items-center gap-2">
                 👀 {tour.name}
               </h1>
-              <p className="text-sm text-primary-100">
+              <p className="text-sm text-text-secondary">
                 Preview Mode • Step {currentStepNumber} of {totalSteps}
               </p>
             </div>
@@ -571,8 +571,8 @@ export default function TourPreviewPage() {
               onClick={() => setIsEditMode(!isEditMode)}
               className={`px-4 py-2 text-sm font-semibold rounded-lg transition shadow-md ${
                 isEditMode
-                  ? 'bg-yellow-500 text-white hover:bg-yellow-600'
-                  : 'bg-white text-primary-700 hover:bg-primary-50'
+                  ? 'bg-warning text-bg-primary hover:bg-warning/80'
+                  : 'bg-bg-tertiary text-text-primary hover:bg-bg-elevated'
               }`}
             >
               {isEditMode ? '✏️ Editing Highlights' : '🎯 Edit Highlights'}
@@ -587,7 +587,7 @@ export default function TourPreviewPage() {
             )}
             <button
               onClick={restartTour}
-              className="px-4 py-2 text-sm bg-white text-primary-700 font-semibold rounded-lg hover:bg-primary-50 transition shadow-md"
+              className="px-4 py-2 text-sm bg-bg-tertiary text-text-primary font-semibold rounded-lg hover:bg-bg-elevated transition shadow-md"
             >
               🔄 Restart
             </button>
@@ -597,10 +597,10 @@ export default function TourPreviewPage() {
 
       {/* Helpful Banner */}
       {currentPageIndex === 0 && currentStepIndex === 0 && !widgetOpen && (
-        <div className="bg-yellow-50 border-b-2 border-yellow-300 px-6 py-3">
+        <div className="bg-warning-bg border-b border-warning/30 px-6 py-3">
           <div className="flex items-center justify-center gap-2 text-sm flex-wrap">
             <span className="text-xl">💡</span>
-            <p className="text-yellow-900 font-medium">
+            <p className="text-warning font-medium">
               This shows how Narrify looks on your website! Click the floating Narrify button (bottom-right) to start the AI tour!
             </p>
           </div>
@@ -694,7 +694,7 @@ export default function TourPreviewPage() {
                 setIsPlaying(true);
                 // Let the useEffect handle starting narration
               }}
-              className="group relative w-16 h-16 bg-gradient-to-r from-primary-600 to-blue-600 rounded-full shadow-2xl hover:shadow-primary-500/50 transition-all hover:scale-110 flex items-center justify-center animate-pulse"
+              className="group relative w-16 h-16 bg-gradient-teal rounded-full shadow-2xl hover:shadow-glow transition-all hover:scale-110 flex items-center justify-center animate-pulse"
             >
               <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full border-2 border-white flex items-center justify-center">
                 <span className="text-xs font-bold text-white">1</span>
@@ -711,9 +711,9 @@ export default function TourPreviewPage() {
             </button>
           ) : (
             /* AI Voice Widget */
-            <div className="w-96 bg-white rounded-2xl shadow-2xl border-2 border-primary-300 overflow-hidden transform transition-all duration-300 scale-100">
+            <div className="w-96 bg-bg-secondary rounded-2xl shadow-2xl border border-border overflow-hidden transform transition-all duration-300 scale-100">
               {/* Widget Header */}
-              <div className="bg-gradient-to-r from-primary-600 to-blue-600 px-6 py-4 flex items-center justify-between">
+              <div className="bg-gradient-teal px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -734,7 +734,7 @@ export default function TourPreviewPage() {
               </div>
 
               {/* Widget Content */}
-              <div className="p-6 bg-gray-50 max-h-96 overflow-y-auto">
+              <div className="p-6 bg-bg-tertiary max-h-96 overflow-y-auto">
                 {/* Current Step Being Narrated */}
                 {currentStep && (
                   <div className="space-y-4">
@@ -746,9 +746,9 @@ export default function TourPreviewPage() {
                         </svg>
                       </div>
                       <div className="flex-1">
-                        <div className="bg-white rounded-xl px-4 py-3 shadow-md border border-gray-200">
+                        <div className="bg-bg-elevated rounded-xl px-4 py-3 shadow-md border border-border">
                           <div className="flex items-center gap-2 mb-2">
-                            <span className="text-xs font-bold text-primary-600 bg-primary-50 px-2 py-1 rounded">
+                            <span className="text-xs font-bold text-accent bg-accent/10 px-2 py-1 rounded">
                               Step {currentStepNumber} of {totalSteps}
                             </span>
                             {isLoadingAudio ? (
@@ -763,12 +763,12 @@ export default function TourPreviewPage() {
                               </span>
                             ) : null}
                           </div>
-                          <h4 className="font-bold text-gray-900 mb-1">{currentStep.title}</h4>
+                          <h4 className="font-bold text-text-primary mb-1">{currentStep.title}</h4>
                           {currentStep.description && (
-                            <p className="text-sm text-gray-600 mb-2">{currentStep.description}</p>
+                            <p className="text-sm text-text-secondary mb-2">{currentStep.description}</p>
                           )}
-                          <div className="bg-blue-50 border-l-4 border-blue-500 px-3 py-2 rounded mt-2">
-                            <p className="text-sm text-gray-800">
+                          <div className="bg-accent/10 border-l-4 border-accent px-3 py-2 rounded mt-2">
+                            <p className="text-sm text-text-primary">
                               {isNarrating ? (
                                 <span className="inline-flex items-center gap-2">
                                   🔊 "{currentStep.script}"
@@ -783,20 +783,20 @@ export default function TourPreviewPage() {
                     </div>
 
                     {/* Highlight Indicator */}
-                    <div className="flex items-center gap-2 text-xs text-gray-500 ml-11">
+                    <div className="flex items-center gap-2 text-xs text-text-tertiary ml-11">
                       <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
-                      <span>Highlighting: <code className="bg-gray-200 px-2 py-1 rounded font-mono">{currentStep.selector}</code></span>
+                      <span>Highlighting: <code className="bg-bg-elevated px-2 py-1 rounded font-mono">{currentStep.selector}</code></span>
                     </div>
 
                     {/* Progress */}
-                    <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200 ml-11">
-                      <div className="flex items-center justify-between text-xs text-gray-600 mb-2">
+                    <div className="bg-bg-elevated rounded-lg p-4 shadow-sm border border-border ml-11">
+                      <div className="flex items-center justify-between text-xs text-text-secondary mb-2">
                         <span className="font-medium">Tour Progress</span>
                         <span>{Math.round((currentStepNumber / totalSteps) * 100)}%</span>
                       </div>
-                      <div className="bg-gray-200 rounded-full h-2">
+                      <div className="bg-bg-elevated rounded-full h-2">
                         <div
-                          className="bg-gradient-to-r from-primary-600 to-blue-600 rounded-full h-2 transition-all"
+                          className="bg-gradient-teal rounded-full h-2 transition-all"
                           style={{ width: `${(currentStepNumber / totalSteps) * 100}%` }}
                         ></div>
                       </div>
@@ -810,11 +810,11 @@ export default function TourPreviewPage() {
       </div>
 
       {/* Controls */}
-      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-gray-50 to-gray-100 border-t-2 border-gray-300 px-6 py-5 shadow-2xl">
+      <div className="fixed bottom-0 left-0 right-0 bg-bg-secondary/90 backdrop-blur-xl border-t border-border px-6 py-5 shadow-2xl">
         <div className="max-w-6xl mx-auto">
           {/* Instruction */}
           <div className="text-center mb-4">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-text-secondary">
               {!widgetOpen ? (
                 <span className="flex items-center justify-center gap-2">
                   <span className="text-lg">👆</span>
@@ -835,7 +835,7 @@ export default function TourPreviewPage() {
               <button
                 onClick={previousStep}
                 disabled={isFirstStep || !widgetOpen}
-                className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-primary-500 transition disabled:opacity-30 disabled:cursor-not-allowed font-medium text-gray-700"
+                className="flex items-center gap-2 px-4 py-2 bg-bg-tertiary border border-border rounded-lg hover:bg-bg-elevated hover:border-accent/50 transition disabled:opacity-30 disabled:cursor-not-allowed font-medium text-text-primary"
                 title="Go to previous step"
               >
                 <SkipBack className="w-4 h-4" />
@@ -857,7 +857,7 @@ export default function TourPreviewPage() {
                   }
                 }}
                 disabled={isLoadingAudio}
-                className="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-primary-600 to-blue-600 text-white rounded-lg hover:from-primary-700 hover:to-blue-700 transition shadow-md font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center gap-2 px-5 py-3 bg-gradient-teal text-bg-primary rounded-lg hover:shadow-glow transition shadow-md font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                 title={isPlaying ? 'Pause AI narration' : 'Start AI narration'}
               >
                 {isLoadingAudio ? (
@@ -880,7 +880,7 @@ export default function TourPreviewPage() {
               <button
                 onClick={nextStep}
                 disabled={isLastStep || !widgetOpen}
-                className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-primary-500 transition disabled:opacity-30 disabled:cursor-not-allowed font-medium text-gray-700"
+                className="flex items-center gap-2 px-4 py-2 bg-bg-tertiary border border-border rounded-lg hover:bg-bg-elevated hover:border-accent/50 transition disabled:opacity-30 disabled:cursor-not-allowed font-medium text-text-primary"
                 title="Go to next step"
               >
                 <span className="text-sm">Next</span>
@@ -891,11 +891,11 @@ export default function TourPreviewPage() {
             <div className="flex items-center gap-3">
               <button
                 onClick={restartTour}
-                className="px-4 py-2 bg-white border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium text-sm"
+                className="px-4 py-2 bg-bg-tertiary border border-border text-text-primary rounded-lg hover:bg-bg-elevated transition font-medium text-sm"
               >
                 🔄 Restart Tour
               </button>
-              <div className="text-sm font-semibold text-gray-700 bg-white px-4 py-2 rounded-lg border-2 border-gray-300 shadow-sm">
+              <div className="text-sm font-semibold text-text-primary bg-bg-tertiary px-4 py-2 rounded-lg border border-border shadow-sm">
                 Step {currentStepNumber} of {totalSteps}
               </div>
             </div>
@@ -903,15 +903,15 @@ export default function TourPreviewPage() {
 
           {/* Progress Bar */}
           <div className="relative">
-            <div className="bg-gray-300 rounded-full h-3 shadow-inner">
+            <div className="bg-bg-elevated rounded-full h-3 shadow-inner">
               <div
-                className="bg-gradient-to-r from-primary-600 to-blue-600 rounded-full h-3 transition-all shadow-md"
+                className="bg-gradient-teal rounded-full h-3 transition-all shadow-md"
                 style={{
                   width: `${(currentStepNumber / totalSteps) * 100}%`,
                 }}
               ></div>
             </div>
-            <div className="text-xs text-center text-gray-500 mt-1">
+            <div className="text-xs text-center text-text-tertiary mt-1">
               {Math.round((currentStepNumber / totalSteps) * 100)}% Complete
             </div>
           </div>

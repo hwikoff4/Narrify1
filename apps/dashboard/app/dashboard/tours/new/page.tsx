@@ -332,48 +332,48 @@ export default function NewTourPage() {
     <div className="p-8">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-3">✨ Create Your Tour</h1>
-          <p className="text-xl text-gray-600">
+          <h1 className="text-4xl font-bold text-text-primary mb-3">✨ Create Your Tour</h1>
+          <p className="text-xl text-text-secondary">
             Let AI do the hard work! Just give it your website and watch the magic happen.
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           {error && (
-            <div className="bg-red-50 border-2 border-red-300 text-red-800 px-5 py-4 rounded-xl">
+            <div className="bg-error-bg border border-error/30 text-error px-5 py-4 rounded-xl">
               <p className="font-semibold mb-1">😕 Oops! Something went wrong:</p>
               <p className="text-sm">{error}</p>
             </div>
           )}
 
           {/* AI Generation Section */}
-          <div className="bg-gradient-to-br from-primary-50 to-blue-50 rounded-xl shadow-xl p-8 border-2 border-primary-300">
+          <div className="bg-bg-secondary rounded-xl shadow-xl p-8 border border-accent/30">
             <div className="text-center mb-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-600 rounded-full mb-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-teal rounded-full mb-4">
                 <Sparkles className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              <h2 className="text-2xl font-bold text-text-primary mb-2">
                 Let AI Build Your Tour
               </h2>
-              <p className="text-lg text-gray-600">
+              <p className="text-lg text-text-secondary">
                 Just tell us about your website and we'll create a complete guided tour automatically!
               </p>
             </div>
 
-            <div className="bg-white/80 rounded-lg p-6 mb-6">
+            <div className="bg-bg-tertiary/80 rounded-lg p-6 mb-6">
               <div className="flex-1">
 
                 {generationError && (
-                  <div className="bg-red-50 border-2 border-red-300 text-red-800 px-5 py-4 rounded-xl mb-4">
+                  <div className="bg-error-bg border border-error/30 text-error px-5 py-4 rounded-xl mb-4">
                     <p className="font-semibold mb-1">😕 Hmm, AI couldn't create your tour:</p>
                     <p className="text-sm">{generationError}</p>
-                    <p className="text-xs mt-2 text-red-600">💡 Try checking your website URL or uploading different pictures!</p>
+                    <p className="text-xs mt-2 text-error/70">💡 Try checking your website URL or uploading different pictures!</p>
                   </div>
                 )}
 
                 {/* Mode Toggle */}
                 <div className="mb-4">
-                  <p className="text-sm font-medium text-gray-700 mb-3 text-center">
+                  <p className="text-sm font-medium text-text-secondary mb-3 text-center">
                     How do you want to share your website?
                   </p>
                   <div className="flex gap-3">
@@ -382,8 +382,8 @@ export default function NewTourPage() {
                       onClick={() => setGenerationMode('url')}
                       className={`flex-1 px-5 py-4 rounded-xl border-2 transition ${
                         generationMode === 'url'
-                          ? 'border-primary-600 bg-primary-50 text-primary-900 shadow-md'
-                          : 'border-gray-300 bg-white text-gray-700 hover:border-primary-400'
+                          ? 'border-accent bg-accent/10 text-text-primary shadow-md'
+                          : 'border-border bg-bg-elevated text-text-secondary hover:border-accent/50'
                       }`}
                     >
                       <div className="text-3xl mb-2">🌐</div>
@@ -397,8 +397,8 @@ export default function NewTourPage() {
                       onClick={() => setGenerationMode('screenshots')}
                       className={`flex-1 px-5 py-4 rounded-xl border-2 transition ${
                         generationMode === 'screenshots'
-                          ? 'border-primary-600 bg-primary-50 text-primary-900 shadow-md'
-                          : 'border-gray-300 bg-white text-gray-700 hover:border-primary-400'
+                          ? 'border-accent bg-accent/10 text-text-primary shadow-md'
+                          : 'border-border bg-bg-elevated text-text-secondary hover:border-accent/50'
                       }`}
                     >
                       <div className="text-3xl mb-2">📸</div>
@@ -414,7 +414,7 @@ export default function NewTourPage() {
                 {generationMode === 'url' && (
                   <div className="space-y-3">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-text-secondary mb-2">
                         What's your website address?
                       </label>
                       <input
@@ -423,9 +423,9 @@ export default function NewTourPage() {
                         onChange={(e) => setWebsiteUrl(e.target.value)}
                         placeholder="https://yourwebsite.com"
                         disabled={generating}
-                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900 disabled:bg-gray-100 disabled:cursor-not-allowed text-lg"
+                        className="input text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                       />
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-xs text-text-tertiary mt-1">
                         💡 Tip: Make sure your website is public so AI can visit it!
                       </p>
                     </div>
@@ -433,7 +433,7 @@ export default function NewTourPage() {
                       type="button"
                       onClick={handleGenerateTour}
                       disabled={generating || !websiteUrl}
-                      className="w-full px-6 py-4 bg-gradient-to-r from-primary-600 to-blue-600 text-white rounded-lg hover:from-primary-700 hover:to-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 font-semibold text-lg shadow-lg"
+                      className="w-full btn-primary py-4 text-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                       {generating ? (
                         <>
@@ -454,14 +454,14 @@ export default function NewTourPage() {
                 {generationMode === 'screenshots' && (
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-text-secondary mb-2">
                         Upload pictures of your app or website
                       </label>
                       {/* Drag and Drop Zone */}
                       <div
                         onDrop={handleScreenshotDrop}
                         onDragOver={(e) => e.preventDefault()}
-                        className="border-3 border-dashed border-primary-300 rounded-xl p-10 text-center hover:border-primary-500 hover:bg-primary-50/50 transition cursor-pointer bg-white"
+                        className="border-2 border-dashed border-accent/30 rounded-xl p-10 text-center hover:border-accent/50 hover:bg-accent/5 transition cursor-pointer bg-bg-tertiary"
                       >
                         <input
                           type="file"
@@ -475,13 +475,13 @@ export default function NewTourPage() {
                           htmlFor="screenshot-upload"
                           className="cursor-pointer block"
                         >
-                          <div className="w-16 h-16 mx-auto mb-4 bg-primary-100 rounded-full flex items-center justify-center">
-                            <Upload className="w-8 h-8 text-primary-600" />
+                          <div className="w-16 h-16 mx-auto mb-4 bg-accent/10 rounded-full flex items-center justify-center">
+                            <Upload className="w-8 h-8 text-accent" />
                           </div>
-                          <p className="text-gray-900 font-semibold mb-2 text-lg">
+                          <p className="text-text-primary font-semibold mb-2 text-lg">
                             📸 Drop your pictures here or click to choose
                           </p>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-text-secondary">
                             The more pictures you add, the better your tour will be!
                           </p>
                         </label>
@@ -494,7 +494,7 @@ export default function NewTourPage() {
                         {screenshots.map((file, index) => (
                           <div
                             key={index}
-                            className="relative group rounded-lg overflow-hidden border border-gray-200"
+                            className="relative group rounded-lg overflow-hidden border border-border"
                           >
                             <img
                               src={URL.createObjectURL(file)}
@@ -518,39 +518,39 @@ export default function NewTourPage() {
 
                     {/* Optional Context Section */}
                     {screenshots.length > 0 && (
-                      <div className="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-300 rounded-xl p-6">
+                      <div className="bg-violet/10 border border-violet/30 rounded-xl p-6">
                         <div className="text-center mb-4">
-                          <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-600 rounded-full mb-3">
+                          <div className="inline-flex items-center justify-center w-12 h-12 bg-violet rounded-full mb-3">
                             <Sparkles className="w-6 h-6 text-white" />
                           </div>
-                          <h3 className="font-bold text-gray-900 mb-2 text-lg">
+                          <h3 className="font-bold text-text-primary mb-2 text-lg">
                             🚀 Want an even better tour?
                           </h3>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-text-secondary">
                             Tell AI about your app! The more you share, the more helpful your tour will be.
                           </p>
                         </div>
 
                         {/* Text Context */}
                         <div className="mb-4">
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                          <label className="block text-sm font-medium text-text-secondary mb-2">
                             What does your app do?
                           </label>
                           <textarea
                             value={contextText}
                             onChange={(e) => setContextText(e.target.value)}
                             rows={4}
-                            className="w-full px-3 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900 resize-none"
+                            className="input resize-none"
                             placeholder="Example: This helps people manage their contacts and sales. The big numbers at the top show how much money we've made. The graph shows daily progress..."
                           />
-                          <p className="text-xs text-gray-500 mt-1">
+                          <p className="text-xs text-text-tertiary mt-1">
                             💡 Write like you're explaining it to a friend!
                           </p>
                         </div>
 
                         {/* Document Upload */}
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                          <label className="block text-sm font-medium text-text-secondary mb-2">
                             Got any guides or documents? (totally optional!)
                           </label>
                           <input
@@ -563,12 +563,12 @@ export default function NewTourPage() {
                           />
                           <label
                             htmlFor="document-upload"
-                            className="inline-flex items-center gap-2 px-4 py-3 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-primary-400 transition cursor-pointer"
+                            className="inline-flex items-center gap-2 px-4 py-3 bg-bg-elevated border border-border rounded-lg hover:bg-bg-tertiary hover:border-accent/50 transition cursor-pointer"
                           >
-                            <FileText className="w-5 h-5 text-primary-600" />
-                            <span className="text-gray-700 font-medium">📄 Add Files</span>
+                            <FileText className="w-5 h-5 text-accent" />
+                            <span className="text-text-secondary font-medium">📄 Add Files</span>
                           </label>
-                          <p className="text-xs text-gray-500 mt-1">
+                          <p className="text-xs text-text-tertiary mt-1">
                             User guides, help docs, or any text files about your app
                           </p>
 
@@ -578,16 +578,16 @@ export default function NewTourPage() {
                               {contextDocuments.map((file, index) => (
                                 <div
                                   key={index}
-                                  className="flex items-center gap-2 bg-white border border-gray-200 rounded-lg px-3 py-2"
+                                  className="flex items-center gap-2 bg-bg-elevated border border-border rounded-lg px-3 py-2"
                                 >
-                                  <FileText className="w-4 h-4 text-gray-500 flex-shrink-0" />
-                                  <span className="text-sm text-gray-700 flex-1 truncate">
+                                  <FileText className="w-4 h-4 text-text-tertiary flex-shrink-0" />
+                                  <span className="text-sm text-text-secondary flex-1 truncate">
                                     {file.name}
                                   </span>
                                   <button
                                     type="button"
                                     onClick={() => removeDocument(index)}
-                                    className="p-1 text-red-600 hover:bg-red-50 rounded transition"
+                                    className="p-1 text-error hover:bg-error-bg rounded transition"
                                   >
                                     <X className="w-4 h-4" />
                                   </button>
@@ -604,7 +604,7 @@ export default function NewTourPage() {
                       type="button"
                       onClick={handleGenerateTour}
                       disabled={generating || screenshots.length === 0}
-                      className="w-full px-6 py-4 bg-gradient-to-r from-primary-600 to-blue-600 text-white rounded-lg hover:from-primary-700 hover:to-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 font-semibold text-lg shadow-lg"
+                      className="w-full btn-primary py-4 text-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                       {generating ? (
                         <>
@@ -623,21 +623,21 @@ export default function NewTourPage() {
 
                 {/* Loading State */}
                 {generating && (
-                  <div className="mt-4 bg-gradient-to-r from-primary-50 to-blue-50 rounded-xl p-5 border-2 border-primary-300">
+                  <div className="mt-4 bg-accent/10 rounded-xl p-5 border border-accent/30">
                     <div className="flex items-start gap-4">
-                      <Loader2 className="w-6 h-6 text-primary-600 animate-spin flex-shrink-0 mt-1" />
+                      <Loader2 className="w-6 h-6 text-accent animate-spin flex-shrink-0 mt-1" />
                       <div className="flex-1">
-                        <p className="font-semibold text-gray-900 mb-1">
+                        <p className="font-semibold text-text-primary mb-1">
                           {generationMode === 'url'
                             ? '🔍 Reading your website...'
                             : '👀 Looking at your pictures...'}
                         </p>
-                        <p className="text-sm text-gray-700">
+                        <p className="text-sm text-text-secondary">
                           {generationMode === 'url'
                             ? 'Our AI is visiting your website and figuring out the best way to explain it!'
                             : 'Our AI is studying your pictures and creating helpful tour steps!'}
                         </p>
-                        <p className="text-xs text-gray-600 mt-2">
+                        <p className="text-xs text-text-tertiary mt-2">
                           ⏱️ This usually takes 1-2 minutes. Hang tight!
                         </p>
                       </div>
@@ -649,19 +649,19 @@ export default function NewTourPage() {
           </div>
 
           {/* Tour Info */}
-          <div className="bg-white rounded-xl shadow-md p-6 border-2 border-gray-200">
+          <div className="bg-bg-secondary rounded-xl shadow-md p-6 border border-border">
             <div className="text-center mb-4">
-              <h2 className="text-2xl font-bold text-gray-900">
+              <h2 className="text-2xl font-bold text-text-primary">
                 📝 Name Your Tour
               </h2>
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-sm text-text-secondary mt-1">
                 Give it a friendly name so you can find it later!
               </p>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-text-secondary mb-2">
                   What should we call this tour?
                 </label>
                 <input
@@ -669,23 +669,23 @@ export default function NewTourPage() {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900 text-lg"
+                  className="input text-lg"
                   placeholder="My Awesome Tour"
                 />
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-text-tertiary mt-1">
                   💡 Examples: "How to Use Our Dashboard" or "Quick Start Guide"
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-text-secondary mb-2">
                   Short description (optional)
                 </label>
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   rows={2}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900"
+                  className="input"
                   placeholder="A quick tour showing new users how to get started..."
                 />
               </div>
@@ -697,7 +697,7 @@ export default function NewTourPage() {
             <button
               type="button"
               onClick={() => setShowAdvancedEditor(!showAdvancedEditor)}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition border-2 border-gray-300"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-bg-elevated hover:bg-bg-tertiary text-text-secondary rounded-lg transition border border-border"
             >
               {showAdvancedEditor ? (
                 <>
@@ -712,7 +712,7 @@ export default function NewTourPage() {
               )}
             </button>
             {!showAdvancedEditor && (
-              <p className="text-xs text-gray-500 mt-2">
+              <p className="text-xs text-text-tertiary mt-2">
                 💡 Don't worry - AI will fill this in for you! Only use this if you're a pro.
               </p>
             )}
@@ -720,18 +720,18 @@ export default function NewTourPage() {
 
           {/* Pages */}
           {showAdvancedEditor && (
-            <div className="space-y-6 p-6 bg-gray-50 rounded-xl border-2 border-gray-300">
-              <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-4 mb-4">
-                <p className="text-sm text-gray-700">
+            <div className="space-y-6 p-6 bg-bg-tertiary/50 rounded-xl border border-border">
+              <div className="bg-warning-bg border border-warning/30 rounded-lg p-4 mb-4">
+                <p className="text-sm text-text-secondary">
                   ⚠️ <strong>Advanced Mode:</strong> This section is for manual editing. Most people should use AI generation instead - it's much easier!
                 </p>
               </div>
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-gray-900">Manual Editor</h2>
+                <h2 className="text-xl font-semibold text-text-primary">Manual Editor</h2>
                 <button
                   type="button"
                   onClick={addPage}
-                  className="flex items-center gap-2 px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
+                  className="flex items-center gap-2 px-4 py-2 text-sm bg-bg-elevated text-text-secondary rounded-lg hover:bg-bg-tertiary transition"
                 >
                   <Plus className="w-4 h-4" />
                   Add Page
@@ -741,14 +741,14 @@ export default function NewTourPage() {
             {pages.map((page, pageIndex) => (
               <div
                 key={page.id}
-                className="bg-white rounded-lg shadow border border-gray-200"
+                className="bg-bg-secondary rounded-lg shadow border border-border"
               >
-                <div className="p-6 border-b border-gray-200">
+                <div className="p-6 border-b border-border">
                   <div className="flex items-start gap-4">
                     <div className="flex-1 space-y-4">
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                          <label className="block text-sm font-medium text-text-secondary mb-2">
                             Page Address (URL)
                           </label>
                           <input
@@ -758,12 +758,12 @@ export default function NewTourPage() {
                             onChange={(e) =>
                               updatePage(page.id, 'url', e.target.value)
                             }
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-gray-900"
+                            className="input"
                             placeholder="/my-page or https://example.com/page"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                          <label className="block text-sm font-medium text-text-secondary mb-2">
                             Page Name
                           </label>
                           <input
@@ -773,7 +773,7 @@ export default function NewTourPage() {
                             onChange={(e) =>
                               updatePage(page.id, 'title', e.target.value)
                             }
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-gray-900"
+                            className="input"
                             placeholder="What's this page called?"
                           />
                         </div>
@@ -784,7 +784,7 @@ export default function NewTourPage() {
                       <button
                         type="button"
                         onClick={() => removePage(page.id)}
-                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
+                        className="p-2 text-error hover:bg-error-bg rounded-lg transition"
                       >
                         <Trash2 className="w-5 h-5" />
                       </button>
@@ -794,13 +794,13 @@ export default function NewTourPage() {
 
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-sm font-semibold text-gray-900">
+                    <h3 className="text-sm font-semibold text-text-primary">
                       Steps
                     </h3>
                     <button
                       type="button"
                       onClick={() => addStep(page.id)}
-                      className="flex items-center gap-2 px-3 py-1.5 text-sm bg-primary-50 text-primary-700 rounded-lg hover:bg-primary-100 transition"
+                      className="flex items-center gap-2 px-3 py-1.5 text-sm bg-accent/10 text-accent rounded-lg hover:bg-accent/20 transition"
                     >
                       <Plus className="w-4 h-4" />
                       Add Step
@@ -811,10 +811,10 @@ export default function NewTourPage() {
                     {page.steps.map((step) => (
                       <div
                         key={step.id}
-                        className="p-4 border border-gray-200 rounded-lg space-y-3"
+                        className="p-4 border border-border rounded-lg space-y-3"
                       >
                         <div className="flex items-start gap-4">
-                          <GripVertical className="w-5 h-5 text-gray-400 mt-2" />
+                          <GripVertical className="w-5 h-5 text-text-tertiary mt-2" />
                           <div className="flex-1 space-y-3">
                             <div className="grid grid-cols-2 gap-3">
                               <input
@@ -829,7 +829,7 @@ export default function NewTourPage() {
                                     e.target.value
                                   )
                                 }
-                                className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm text-gray-900"
+                                className="input text-sm"
                                 placeholder="What is this step about?"
                               />
                               <input
@@ -844,7 +844,7 @@ export default function NewTourPage() {
                                     e.target.value
                                   )
                                 }
-                                className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm font-mono text-gray-900"
+                                className="input text-sm font-mono"
                                 placeholder="Button or element ID (e.g., #submit-btn)"
                               />
                             </div>
@@ -860,14 +860,14 @@ export default function NewTourPage() {
                                 )
                               }
                               rows={2}
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm text-gray-900"
+                              className="input text-sm"
                               placeholder="What should the tour say here? (e.g., 'Click this button to save your work!')"
                             />
                           </div>
                           <button
                             type="button"
                             onClick={() => removeStep(page.id, step.id)}
-                            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
+                            className="p-2 text-error hover:bg-error-bg rounded-lg transition"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -876,7 +876,7 @@ export default function NewTourPage() {
                     ))}
 
                     {page.steps.length === 0 && (
-                      <p className="text-sm text-gray-500 text-center py-4">
+                      <p className="text-sm text-text-tertiary text-center py-4">
                         No steps yet. Click "Add Step" to create your first step.
                       </p>
                     )}
@@ -892,14 +892,14 @@ export default function NewTourPage() {
             <button
               type="button"
               onClick={() => router.back()}
-              className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium"
+              className="btn-secondary"
             >
               ← Go Back
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:from-green-700 hover:to-emerald-700 transition disabled:opacity-50 font-bold text-lg shadow-lg"
+              className="flex-1 btn-primary py-4 text-lg disabled:opacity-50"
             >
               {loading ? '✨ Saving Your Tour...' : '🚀 Save & Finish'}
             </button>

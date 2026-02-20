@@ -91,8 +91,8 @@ export default function EditTourPage() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading tour...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto mb-4"></div>
+          <p className="text-text-secondary">Loading tour...</p>
         </div>
       </div>
     );
@@ -103,35 +103,35 @@ export default function EditTourPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="p-8">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <Link
             href={`/dashboard/tours/${tour.id}`}
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="inline-flex items-center gap-2 text-text-secondary hover:text-text-primary mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Tour
           </Link>
 
-          <h1 className="text-3xl font-bold text-gray-900">✏️ Edit Tour</h1>
-          <p className="text-gray-600 mt-2">Update your tour name and description</p>
+          <h1 className="text-3xl font-bold text-text-primary">✏️ Edit Tour</h1>
+          <p className="text-text-secondary mt-2">Update your tour name and description</p>
         </div>
 
         {/* Edit Form */}
-        <div className="bg-white rounded-xl shadow-lg border-2 border-gray-200 p-8">
+        <div className="bg-bg-secondary rounded-xl shadow-lg border border-border p-8">
           <form onSubmit={handleSave} className="space-y-6">
             {error && (
-              <div className="bg-red-50 border-2 border-red-300 text-red-800 px-5 py-4 rounded-xl">
+              <div className="bg-error-bg border border-error/30 text-error px-5 py-4 rounded-xl">
                 <p className="text-sm font-medium">{error}</p>
               </div>
             )}
 
             {/* Tour Name */}
             <div>
-              <label htmlFor="name" className="block text-sm font-bold text-gray-900 mb-2">
-                Tour Name <span className="text-red-500">*</span>
+              <label htmlFor="name" className="block text-sm font-bold text-text-primary mb-2">
+                Tour Name <span className="text-error">*</span>
               </label>
               <input
                 id="name"
@@ -139,17 +139,17 @@ export default function EditTourPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                className="input"
                 placeholder="e.g., Product Tour, Feature Walkthrough"
               />
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-text-tertiary mt-1">
                 Give your tour a clear, descriptive name
               </p>
             </div>
 
             {/* Tour Description */}
             <div>
-              <label htmlFor="description" className="block text-sm font-bold text-gray-900 mb-2">
+              <label htmlFor="description" className="block text-sm font-bold text-text-primary mb-2">
                 Description (Optional)
               </label>
               <textarea
@@ -157,21 +157,21 @@ export default function EditTourPage() {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={4}
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                className="input"
                 placeholder="Describe what this tour covers..."
               />
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-text-tertiary mt-1">
                 Help your team understand what this tour is about
               </p>
             </div>
 
             {/* Info Banner */}
-            <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4">
+            <div className="bg-accent/10 border border-accent/30 rounded-xl p-4">
               <div className="flex gap-3">
                 <span className="text-2xl">ℹ️</span>
                 <div className="flex-1">
-                  <h4 className="font-bold text-gray-900 mb-1">Note about editing pages and steps</h4>
-                  <p className="text-sm text-gray-700">
+                  <h4 className="font-bold text-text-primary mb-1">Note about editing pages and steps</h4>
+                  <p className="text-sm text-text-secondary">
                     To edit the pages and steps in your tour, use the Preview page and click "Edit Highlights" to adjust the highlighted areas and positions.
                   </p>
                 </div>
@@ -183,7 +183,7 @@ export default function EditTourPage() {
               <button
                 type="submit"
                 disabled={saving || !name.trim()}
-                className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition font-semibold shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 flex items-center justify-center gap-2 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {saving ? (
                   <>
@@ -199,7 +199,7 @@ export default function EditTourPage() {
               </button>
               <Link
                 href={`/dashboard/tours/${tour.id}`}
-                className="px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-semibold"
+                className="btn-secondary"
               >
                 Cancel
               </Link>
@@ -211,14 +211,14 @@ export default function EditTourPage() {
         <div className="mt-6 grid grid-cols-2 gap-4">
           <Link
             href={`/dashboard/tours/${tour.id}/preview`}
-            className="flex items-center gap-2 px-4 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-primary-50 hover:border-primary-500 transition font-medium"
+            className="flex items-center gap-2 px-4 py-3 bg-bg-secondary border border-border text-text-primary rounded-lg hover:bg-bg-tertiary hover:border-accent/50 transition font-medium"
           >
             <span className="text-xl">👀</span>
             <span>Go to Preview</span>
           </Link>
           <Link
             href={`/dashboard/tours/${tour.id}`}
-            className="flex items-center gap-2 px-4 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-primary-50 hover:border-primary-500 transition font-medium"
+            className="flex items-center gap-2 px-4 py-3 bg-bg-secondary border border-border text-text-primary rounded-lg hover:bg-bg-tertiary hover:border-accent/50 transition font-medium"
           >
             <span className="text-xl">📊</span>
             <span>View Tour Details</span>

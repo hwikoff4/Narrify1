@@ -33,10 +33,10 @@ export default async function ToursPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-2">
+          <h1 className="text-3xl sm:text-4xl font-display font-bold text-text-primary mb-2">
             Your Tours
           </h1>
-          <p className="text-lg text-secondary">
+          <p className="text-lg text-text-secondary">
             {!tours || tours.length === 0
               ? "Create and manage your interactive tours"
               : `Managing ${tours.length} ${tours.length === 1 ? 'tour' : 'tours'}`}
@@ -66,10 +66,10 @@ export default async function ToursPage() {
               <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-teal mb-6 shadow-glow">
                 <Sparkles className="w-10 h-10 text-bg-primary" />
               </div>
-              <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-4">
+              <h2 className="text-3xl sm:text-4xl font-display font-bold text-text-primary mb-4">
                 Create Your First Tour
               </h2>
-              <p className="text-lg text-secondary">
+              <p className="text-lg text-text-secondary">
                 AI-powered tour creation in minutes. No coding required.
               </p>
             </div>
@@ -84,9 +84,9 @@ export default async function ToursPage() {
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
                     <Globe className="w-5 h-5 text-accent" />
-                    <h3 className="font-display font-bold text-primary">Enter Website URL</h3>
+                    <h3 className="font-display font-bold text-text-primary">Enter Website URL</h3>
                   </div>
-                  <p className="text-sm text-secondary">
+                  <p className="text-sm text-text-secondary">
                     Provide your website URL and AI will analyze your pages to understand your product
                   </p>
                 </div>
@@ -94,15 +94,15 @@ export default async function ToursPage() {
 
               {/* Step 2 */}
               <div className="bg-bg-tertiary/60 rounded-2xl border-2 border-border shadow-md p-6 flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-bg-elevated text-secondary rounded-xl flex items-center justify-center text-lg font-bold">
+                <div className="flex-shrink-0 w-12 h-12 bg-bg-elevated text-text-secondary rounded-xl flex items-center justify-center text-lg font-bold">
                   2
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    <Wand2 className="w-5 h-5 text-tertiary" />
-                    <h3 className="font-display font-bold text-secondary">AI Generates Tour</h3>
+                    <Wand2 className="w-5 h-5 text-text-tertiary" />
+                    <h3 className="font-display font-bold text-text-secondary">AI Generates Tour</h3>
                   </div>
-                  <p className="text-sm text-tertiary">
+                  <p className="text-sm text-text-tertiary">
                     Claude Vision analyzes your UI and creates contextual tour steps automatically
                   </p>
                 </div>
@@ -110,15 +110,15 @@ export default async function ToursPage() {
 
               {/* Step 3 */}
               <div className="bg-bg-tertiary/60 rounded-2xl border-2 border-border shadow-md p-6 flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-bg-elevated text-secondary rounded-xl flex items-center justify-center text-lg font-bold">
+                <div className="flex-shrink-0 w-12 h-12 bg-bg-elevated text-text-secondary rounded-xl flex items-center justify-center text-lg font-bold">
                   3
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    <Eye className="w-5 h-5 text-tertiary" />
-                    <h3 className="font-display font-bold text-secondary">Preview & Customize</h3>
+                    <Eye className="w-5 h-5 text-text-tertiary" />
+                    <h3 className="font-display font-bold text-text-secondary">Preview & Customize</h3>
                   </div>
-                  <p className="text-sm text-tertiary">
+                  <p className="text-sm text-text-tertiary">
                     Review the generated tour, make adjustments, and customize the appearance
                   </p>
                 </div>
@@ -126,15 +126,15 @@ export default async function ToursPage() {
 
               {/* Step 4 */}
               <div className="bg-bg-tertiary/60 rounded-2xl border-2 border-border shadow-md p-6 flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-bg-elevated text-secondary rounded-xl flex items-center justify-center text-lg font-bold">
+                <div className="flex-shrink-0 w-12 h-12 bg-bg-elevated text-text-secondary rounded-xl flex items-center justify-center text-lg font-bold">
                   4
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    <Sparkles className="w-5 h-5 text-tertiary" />
-                    <h3 className="font-display font-bold text-secondary">Deploy to Website</h3>
+                    <Sparkles className="w-5 h-5 text-text-tertiary" />
+                    <h3 className="font-display font-bold text-text-secondary">Deploy to Website</h3>
                   </div>
-                  <p className="text-sm text-tertiary">
+                  <p className="text-sm text-text-tertiary">
                     Add a single script tag to your site and your tour is live
                   </p>
                 </div>
@@ -151,7 +151,7 @@ export default async function ToursPage() {
                 <span>Create Your First Tour</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <p className="text-sm text-tertiary mt-4 flex items-center justify-center gap-4 flex-wrap">
+              <p className="text-sm text-text-tertiary mt-4 flex items-center justify-center gap-4 flex-wrap">
                 <span>2-minute setup</span>
                 <span>•</span>
                 <span>No coding required</span>
@@ -181,17 +181,17 @@ export default async function ToursPage() {
                   </div>
                 </div>
 
-                <h3 className="text-xl font-display font-bold text-primary mb-2 line-clamp-2">
+                <h3 className="text-xl font-display font-bold text-text-primary mb-2 line-clamp-2">
                   {tour.name}
                 </h3>
 
                 {tour.description && (
-                  <p className="text-sm text-secondary mb-4 line-clamp-2">
+                  <p className="text-sm text-text-secondary mb-4 line-clamp-2">
                     {tour.description}
                   </p>
                 )}
 
-                <div className="flex items-center justify-between text-sm text-tertiary pt-4 border-t border-border">
+                <div className="flex items-center justify-between text-sm text-text-tertiary pt-4 border-t border-border">
                   <div className="flex items-center gap-1.5">
                     <FileText className="w-4 h-4" />
                     <span>{tour.pages?.length || 0} pages</span>

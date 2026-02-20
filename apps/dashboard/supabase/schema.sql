@@ -107,6 +107,10 @@ CREATE POLICY "Users can update their own client data"
   ON clients FOR UPDATE
   USING (auth.uid() = auth_user_id);
 
+CREATE POLICY "Users can insert their own client data"
+  ON clients FOR INSERT
+  WITH CHECK (auth.uid() = auth_user_id);
+
 -- API Keys policies
 CREATE POLICY "Users can view their own API keys"
   ON api_keys FOR SELECT
