@@ -16,6 +16,8 @@ export default function TourDetailPage() {
   const [loading, setLoading] = useState(true);
   const [showCodeModal, setShowCodeModal] = useState(false);
   const [codeCopied, setCodeCopied] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     loadTour();
@@ -71,6 +73,24 @@ export default function TourDetailPage() {
     navigator.clipboard.writeText(embedCode);
     setCodeCopied(true);
     setTimeout(() => setCodeCopied(false), 2000);
+  }
+
+  async function deleteTour() {
+    setDeleting(true);
+    try {
+      const { error } = await supabase
+        .from('tours')
+        .delete()
+        .eq('id', params.id);
+
+      if (error) throw error;
+
+      router.push('/dashboard/tours');
+    } catch (err: any) {
+      console.error('Error deleting tour:', err);
+      setDeleting(false);
+      setShowDeleteModal(false);
+    }
   }
 
   if (loading) {
@@ -153,6 +173,14 @@ export default function TourDetailPage() {
               >
                 <Code className="w-5 h-5" />
                 Get Code
+              </button>
+              <button
+                onClick={() => setShowDeleteModal(true)}
+                className="flex items-center gap-2 px-5 py-3 btn-secondary text-error hover:bg-error-bg hover:border-error/30 transition-all duration-200 font-bold hover:scale-[1.02] shadow-sm"
+                title="Delete this tour"
+              >
+                <Trash2 className="w-5 h-5" />
+                Delete
               </button>
             </div>
           </div>
@@ -419,6 +447,46 @@ export default function TourDetailPage() {
                 className="px-6 py-3 btn-secondary rounded-xl transition-all duration-200 font-bold hover:scale-[1.02] shadow-sm"
               >
                 Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
+          <div className="bg-bg-secondary/95 backdrop-blur-md rounded-2xl shadow-2xl max-w-md w-full border border-border animate-scale-in p-8">
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-error-bg flex items-center justify-center">
+                <Trash2 className="w-8 h-8 text-error" />
+              </div>
+              <h3 className="text-2xl font-display font-bold text-text-primary mb-2">Delete Tour</h3>
+              <p className="text-text-secondary">
+                Are you sure you want to delete <strong className="text-text-primary">{tour.name}</strong>? This action cannot be undone.
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                disabled={deleting}
+                className="flex-1 btn-secondary py-3 font-bold disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={deleteTour}
+                disabled={deleting}
+                className="flex-1 px-6 py-3 bg-error text-white rounded-xl hover:bg-error/80 transition-all font-bold disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {deleting ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Deleting...
+                  </span>
+                ) : (
+                  'Delete Tour'
+                )}
               </button>
             </div>
           </div>

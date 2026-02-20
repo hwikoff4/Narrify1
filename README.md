@@ -406,7 +406,7 @@ Compare to ElevenLabs Agent: ~$0.10+ per minute
 
 ### Phase 2: Dashboard (In Progress)
 - [x] Authentication UI
-- [ ] Tour Builder
+- [x] Tour Builder
 - [ ] Theme Editor
 - [ ] AI Settings
 - [ ] API Key Management
