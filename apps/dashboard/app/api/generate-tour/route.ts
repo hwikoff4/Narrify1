@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
 
-export const runtime = 'edge';
+export const maxDuration = 120;
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY || 'demo-mode',
@@ -14,6 +14,38 @@ interface GenerateTourRequest {
   contextText?: string;
   contextDocuments?: string[];
   tourName?: string;
+}
+
+function stripHtml(html: string): string {
+  // Remove script tags and their content
+  let cleaned = html.replace(/<script[\s\S]*?<\/script>/gi, '');
+  // Remove style tags and their content
+  cleaned = cleaned.replace(/<style[\s\S]*?<\/style>/gi, '');
+  // Remove SVG tags and their content
+  cleaned = cleaned.replace(/<svg[\s\S]*?<\/svg>/gi, '<svg/>');
+  // Remove HTML comments
+  cleaned = cleaned.replace(/<!--[\s\S]*?-->/g, '');
+  // Remove inline styles
+  cleaned = cleaned.replace(/ style="[^"]*"/gi, '');
+  // Collapse whitespace
+  cleaned = cleaned.replace(/\s{2,}/g, ' ');
+  return cleaned;
+}
+
+async function callClaudeWithRetry(params: any, retries = 2): Promise<any> {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      return await anthropic.messages.create(params);
+    } catch (err: any) {
+      const isRetryable = err?.status === 529 || err?.status === 503 || err?.error?.type === 'overloaded_error';
+      if (isRetryable && attempt < retries) {
+        console.log(`Claude API overloaded, retrying in ${(attempt + 1) * 3}s (attempt ${attempt + 1}/${retries})...`);
+        await new Promise(r => setTimeout(r, (attempt + 1) * 3000));
+        continue;
+      }
+      throw err;
+    }
+  }
 }
 
 export async function POST(req: NextRequest) {
@@ -53,12 +85,13 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      const html = await response.text();
+      const rawHtml = await response.text();
+      const html = stripHtml(rawHtml);
 
       prompt = `You are a UX expert creating an interactive product tour. Analyze this webpage HTML and generate a comprehensive onboarding tour.
 
 WEBSITE HTML:
-${html.substring(0, 50000)} ${html.length > 50000 ? '...(truncated)' : ''}
+${html.substring(0, 30000)} ${html.length > 30000 ? '...(truncated)' : ''}
 
 TASK:
 Generate a tour with 4-8 steps that highlights the most important features and UI elements. For each step:
@@ -221,8 +254,8 @@ Return ONLY the JSON, no markdown formatting.`;
       return NextResponse.json(mockTour);
     }
 
-    const message = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
+    const message = await callClaudeWithRetry({
+      model: 'claude-sonnet-4-5-20250929',
       max_tokens: 4096,
       messages: [
         {
