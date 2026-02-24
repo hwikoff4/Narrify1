@@ -21,13 +21,13 @@ import {
 
 interface TourDetail {
   id: string;
-  title: string;
+  name: string;
   description?: string;
   client_id: string;
   client_email: string;
   client_name: string;
   client_company?: string;
-  published: boolean;
+  is_active: boolean;
   created_at: string;
   updated_at: string;
   steps_count: number;
@@ -88,25 +88,30 @@ export default function AdminToursPage() {
             email,
             name,
             company
-          ),
-          steps:tour_steps(count)
+          )
         `)
         .order('created_at', { ascending: false });
 
-      const processedTours: TourDetail[] = (toursData || []).map((tour: any) => ({
-        id: tour.id,
-        title: tour.title,
-        description: tour.description,
-        client_id: tour.client_id,
-        client_email: tour.client?.email || 'Unknown',
-        client_name: tour.client?.name || 'Unknown',
-        client_company: tour.client?.company,
-        published: tour.published || false,
-        created_at: tour.created_at,
-        updated_at: tour.updated_at,
-        steps_count: tour.steps?.[0]?.count || 0,
-        views_count: 0, // Would get from analytics if available
-      }));
+      const processedTours: TourDetail[] = (toursData || []).map((tour: any) => {
+        // Compute step count from pages JSONB array
+        const pages = tour.pages || [];
+        const stepsCount = pages.reduce((sum: number, page: any) => sum + (page.steps?.length || 0), 0);
+
+        return {
+          id: tour.id,
+          name: tour.name,
+          description: tour.description,
+          client_id: tour.client_id,
+          client_email: tour.client?.email || 'Unknown',
+          client_name: tour.client?.name || 'Unknown',
+          client_company: tour.client?.company,
+          is_active: tour.is_active || false,
+          created_at: tour.created_at,
+          updated_at: tour.updated_at,
+          steps_count: stepsCount,
+          views_count: 0, // Would get from analytics if available
+        };
+      });
 
       setTours(processedTours);
     } catch (err) {
@@ -116,14 +121,14 @@ export default function AdminToursPage() {
 
   function exportData() {
     const csv = [
-      ['Title', 'Description', 'Client', 'Email', 'Company', 'Status', 'Steps', 'Created', 'Updated'].join(','),
+      ['Name', 'Description', 'Client', 'Email', 'Company', 'Status', 'Steps', 'Created', 'Updated'].join(','),
       ...filteredTours.map(t => [
-        t.title,
+        t.name,
         (t.description || '').replace(/,/g, ';'),
         t.client_name,
         t.client_email,
         t.client_company || '',
-        t.published ? 'Published' : 'Draft',
+        t.is_active ? 'Active' : 'Draft',
         t.steps_count,
         new Date(t.created_at).toLocaleDateString(),
         new Date(t.updated_at).toLocaleDateString()
@@ -140,23 +145,23 @@ export default function AdminToursPage() {
 
   const filteredTours = tours.filter(t => {
     const matchesSearch =
-      t.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      t.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       t.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       t.client_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       t.client_email.toLowerCase().includes(searchTerm.toLowerCase()) ||
       t.client_company?.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesStatus = filterStatus === 'all' ||
-      (filterStatus === 'published' && t.published) ||
-      (filterStatus === 'draft' && !t.published);
+      (filterStatus === 'published' && t.is_active) ||
+      (filterStatus === 'draft' && !t.is_active);
 
     return matchesSearch && matchesStatus;
   });
 
   const stats = {
     total: tours.length,
-    published: tours.filter(t => t.published).length,
-    draft: tours.filter(t => !t.published).length,
+    published: tours.filter(t => t.is_active).length,
+    draft: tours.filter(t => !t.is_active).length,
     totalSteps: tours.reduce((sum, t) => sum + t.steps_count, 0),
   };
 
@@ -285,12 +290,12 @@ export default function AdminToursPage() {
               <div className="flex items-start justify-between mb-5">
                 <div className="flex-1">
                   <div className="flex items-start gap-3 mb-3">
-                    <h3 className="text-xl sm:text-2xl font-display font-bold text-neutral-900 group-hover:text-accent-600 transition-colors flex-1">{tour.title}</h3>
+                    <h3 className="text-xl sm:text-2xl font-display font-bold text-neutral-900 group-hover:text-accent-600 transition-colors flex-1">{tour.name}</h3>
                     <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-display font-bold rounded-xl shadow-sm flex-shrink-0 ${
-                      tour.published ? 'bg-gradient-to-r from-success-500 to-success-600 text-white' : 'bg-gradient-to-r from-warning-500 to-warning-600 text-white'
+                      tour.is_active ? 'bg-gradient-to-r from-success-500 to-success-600 text-white' : 'bg-gradient-to-r from-warning-500 to-warning-600 text-white'
                     }`}>
-                      {tour.published ? <CheckCircle className="w-3.5 h-3.5" /> : <Edit className="w-3.5 h-3.5" />}
-                      {tour.published ? 'Published' : 'Draft'}
+                      {tour.is_active ? <CheckCircle className="w-3.5 h-3.5" /> : <Edit className="w-3.5 h-3.5" />}
+                      {tour.is_active ? 'Active' : 'Draft'}
                     </span>
                   </div>
 

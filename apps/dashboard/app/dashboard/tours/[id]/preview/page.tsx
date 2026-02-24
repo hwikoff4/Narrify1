@@ -58,6 +58,7 @@ export default function TourPreviewPage() {
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [theme, setTheme] = useState({ primary: '#eab308', accent: '#f97316' });
 
   // Calculate current page and step (must be before useEffects that use them)
   const currentPage = tour?.pages[currentPageIndex];
@@ -240,11 +241,19 @@ export default function TourPreviewPage() {
 
       const { data: clientData } = await supabase
         .from('clients')
-        .select('id')
+        .select('id, config')
         .eq('auth_user_id', user.id)
         .single();
 
       const client = clientData as any;
+
+      // Load client theme
+      if (client?.config?.theme) {
+        setTheme({
+          primary: client.config.theme.primary || '#eab308',
+          accent: client.config.theme.accent || '#f97316',
+        });
+      }
 
       const { data: tourDataRaw, error: tourError } = await supabase
         .from('tours')
@@ -636,8 +645,18 @@ export default function TourPreviewPage() {
             onMouseDown={(e) => handleMouseDown(e, 'drag')}
           >
             {/* Pulsing glow effect */}
-            <div className={`absolute inset-0 border-4 ${isEditMode ? 'border-blue-500' : 'border-yellow-400'} rounded-lg ${!isEditMode && 'animate-pulse'} shadow-2xl`}>
-              <div className={`absolute inset-0 ${isEditMode ? 'bg-blue-500/20' : 'bg-yellow-400/20'} rounded-lg`}></div>
+            <div
+              className={`absolute inset-0 border-4 rounded-lg ${!isEditMode && 'animate-pulse'} shadow-2xl`}
+              style={{
+                borderColor: isEditMode ? '#3b82f6' : theme.primary,
+              }}
+            >
+              <div
+                className="absolute inset-0 rounded-lg"
+                style={{
+                  backgroundColor: isEditMode ? 'rgba(59, 130, 246, 0.2)' : theme.primary + '33',
+                }}
+              ></div>
             </div>
 
             {/* Edit mode controls */}
@@ -672,13 +691,13 @@ export default function TourPreviewPage() {
             {/* Animated corners (only show when not editing) */}
             {!isEditMode && (
               <>
-                <div className="absolute -top-1 -left-1 w-6 h-6 border-t-4 border-l-4 border-yellow-500 rounded-tl-lg animate-pulse"></div>
-                <div className="absolute -top-1 -right-1 w-6 h-6 border-t-4 border-r-4 border-yellow-500 rounded-tr-lg animate-pulse"></div>
-                <div className="absolute -bottom-1 -left-1 w-6 h-6 border-b-4 border-l-4 border-yellow-500 rounded-bl-lg animate-pulse"></div>
-                <div className="absolute -bottom-1 -right-1 w-6 h-6 border-b-4 border-r-4 border-yellow-500 rounded-br-lg animate-pulse"></div>
+                <div className="absolute -top-1 -left-1 w-6 h-6 border-t-4 border-l-4 rounded-tl-lg animate-pulse" style={{ borderColor: theme.primary }}></div>
+                <div className="absolute -top-1 -right-1 w-6 h-6 border-t-4 border-r-4 rounded-tr-lg animate-pulse" style={{ borderColor: theme.primary }}></div>
+                <div className="absolute -bottom-1 -left-1 w-6 h-6 border-b-4 border-l-4 rounded-bl-lg animate-pulse" style={{ borderColor: theme.primary }}></div>
+                <div className="absolute -bottom-1 -right-1 w-6 h-6 border-b-4 border-r-4 rounded-br-lg animate-pulse" style={{ borderColor: theme.primary }}></div>
 
                 {/* Spotlight effect */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-yellow-400/30 via-orange-400/30 to-yellow-400/30 blur-xl animate-pulse"></div>
+                <div className="absolute -inset-4 blur-xl animate-pulse" style={{ background: `linear-gradient(to right, ${theme.primary}4D, ${theme.accent}4D, ${theme.primary}4D)` }}></div>
               </>
             )}
           </div>
@@ -784,7 +803,7 @@ export default function TourPreviewPage() {
 
                     {/* Highlight Indicator */}
                     <div className="flex items-center gap-2 text-xs text-text-tertiary ml-11">
-                      <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                      <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: theme.primary }}></div>
                       <span>Highlighting: <code className="bg-bg-elevated px-2 py-1 rounded font-mono">{currentStep.selector}</code></span>
                     </div>
 

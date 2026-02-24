@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { Bot, MessageCircle } from 'lucide-react';
+import { Bot, MessageCircle, Volume2 } from 'lucide-react';
 
 export default function AISettingsPage() {
   const supabase = createClient();
@@ -19,6 +19,12 @@ export default function AISettingsPage() {
     textFallback: true,
     visionEnabled: true,
     includeDOM: false,
+  });
+
+  const [voiceSettings, setVoiceSettings] = useState({
+    voiceId: 'bella',
+    speed: 1.0,
+    language: 'en',
   });
 
   useEffect(() => {
@@ -52,6 +58,15 @@ export default function AISettingsPage() {
         textFallback: conv.textFallback ?? true,
         visionEnabled: conv.vision?.enabled ?? true,
         includeDOM: conv.vision?.includeDOM ?? false,
+      });
+    }
+
+    if (client?.config?.voice) {
+      const voice = client.config.voice;
+      setVoiceSettings({
+        voiceId: voice.voiceId || 'bella',
+        speed: voice.speed ?? 1.0,
+        language: voice.language || 'en',
       });
     }
   }
@@ -98,6 +113,11 @@ export default function AISettingsPage() {
                 includeDOM: settings.includeDOM,
                 maxImageSize: 500,
               },
+            },
+            voice: {
+              voiceId: voiceSettings.voiceId,
+              speed: voiceSettings.speed,
+              language: voiceSettings.language,
             },
           },
         })
@@ -347,6 +367,95 @@ export default function AISettingsPage() {
                   />
                   <div className="w-14 h-7 bg-bg-elevated peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-accent/30 rounded-full peer peer-checked:after:translate-x-7 peer-checked:after:border-bg-primary after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-bg-primary after:border-border after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-teal shadow-sm"></div>
                 </label>
+              </div>
+            </div>
+          </div>
+
+          {/* Voice Settings */}
+          <div className="bg-bg-secondary backdrop-blur-sm rounded-2xl shadow-glass p-6 sm:p-8 border border-border animate-fade-up" style={{ animationDelay: '0.25s' }}>
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-teal flex items-center justify-center shadow-lg flex-shrink-0">
+                <Volume2 className="w-7 h-7 text-bg-primary" />
+              </div>
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-display font-bold text-primary">
+                  Voice Settings
+                </h2>
+                <p className="text-sm text-secondary mt-1 font-medium">
+                  Configure the AI narration voice
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-base font-display font-bold text-primary mb-2">
+                    Voice
+                  </label>
+                  <p className="text-sm text-secondary mb-4 font-medium">
+                    Select the AI narration voice
+                  </p>
+                  <select
+                    value={voiceSettings.voiceId}
+                    onChange={(e) =>
+                      setVoiceSettings({ ...voiceSettings, voiceId: e.target.value })
+                    }
+                    className="w-full px-4 py-3 border-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all text-primary font-medium shadow-sm bg-bg-tertiary"
+                  >
+                    <option value="bella">Bella (English)</option>
+                    <option value="spanish">Spanish Voice</option>
+                    <option value="french">French Voice</option>
+                    <option value="german">German Voice</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-base font-display font-bold text-primary mb-2">
+                    Language
+                  </label>
+                  <p className="text-sm text-secondary mb-4 font-medium">
+                    Primary language for narration
+                  </p>
+                  <select
+                    value={voiceSettings.language}
+                    onChange={(e) =>
+                      setVoiceSettings({ ...voiceSettings, language: e.target.value })
+                    }
+                    className="w-full px-4 py-3 border-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all text-primary font-medium shadow-sm bg-bg-tertiary"
+                  >
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-base font-display font-bold text-primary mb-2">
+                  Speech Speed: {voiceSettings.speed}x
+                </label>
+                <p className="text-sm text-secondary mb-4 font-medium">
+                  Adjust the narration playback speed
+                </p>
+                <input
+                  type="range"
+                  min="0.75"
+                  max="2.0"
+                  step="0.25"
+                  value={voiceSettings.speed}
+                  onChange={(e) =>
+                    setVoiceSettings({ ...voiceSettings, speed: parseFloat(e.target.value) })
+                  }
+                  className="w-full h-2 bg-bg-elevated rounded-lg appearance-none cursor-pointer accent-accent"
+                />
+                <div className="flex justify-between text-xs text-secondary mt-2 font-medium">
+                  <span>0.75x</span>
+                  <span>1.0x</span>
+                  <span>1.5x</span>
+                  <span>2.0x</span>
+                </div>
               </div>
             </div>
           </div>

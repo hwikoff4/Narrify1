@@ -35,6 +35,9 @@ export class ConversationUI {
   // Callback for when user wants to continue tour
   private onContinueTour: (() => void) | null = null;
 
+  // Callback for when user asks a question
+  private onQuestionAskedCallback: ((question: string) => void) | null = null;
+
   constructor(
     config: ConversationUIConfig,
     visionAI: VisionAI,
@@ -333,6 +336,11 @@ export class ConversationUI {
    */
   private async handleUserQuestion(question: string): Promise<void> {
     try {
+      // Notify listeners that a question was asked
+      if (this.onQuestionAskedCallback) {
+        this.onQuestionAskedCallback(question);
+      }
+
       // Capture screen
       const screenshot = await this.screenCapture.captureViewport();
 
@@ -481,6 +489,13 @@ export class ConversationUI {
    */
   onContinue(callback: () => void): void {
     this.onContinueTour = callback;
+  }
+
+  /**
+   * Set callback for when a question is asked
+   */
+  onQuestionAsked(callback: (question: string) => void): void {
+    this.onQuestionAskedCallback = callback;
   }
 
   /**

@@ -6,8 +6,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
 import type { AIRequest, AIResponse } from '@narrify/shared';
+import { createClient } from '@/lib/supabase/server';
 
-export const runtime = 'edge';
+interface ApiKeyData {
+  id: string;
+  active: boolean;
+  client_id: string;
+  usage_count: number;
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,11 +26,34 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // TODO: Validate API key against database
-    // const isValid = await validateApiKey(apiKey);
-    // if (!isValid) {
-    //   return NextResponse.json({ error: 'Invalid API key' }, { status: 401 });
-    // }
+    // Validate API key against database
+    const supabase = await createClient();
+    const { data: keyData, error: keyError } = await supabase
+      .from('api_keys')
+      .select('id, active, client_id, usage_count')
+      .eq('key', apiKey)
+      .single();
+
+    const apiKeyData = keyData as unknown as ApiKeyData | null;
+
+    if (keyError || !apiKeyData || !apiKeyData.active) {
+      return NextResponse.json(
+        { error: 'Invalid or inactive API key' },
+        { status: 401 }
+      );
+    }
+
+    // Update API key usage
+    const currentUsageCount = apiKeyData.usage_count || 0;
+    const supabaseForUpdate = await createClient();
+    await supabaseForUpdate
+      .from('api_keys')
+      // @ts-ignore - Supabase type inference may break after type assertion
+      .update({
+        usage_count: currentUsageCount + 1,
+        last_used_at: new Date().toISOString(),
+      })
+      .eq('id', apiKeyData.id);
 
     // Parse request
     const body: AIRequest = await request.json();
@@ -101,9 +130,6 @@ ${screenshot ? 'Look at the screenshot and answer the user\'s question specifica
       sources: [],
     };
 
-    // Track usage
-    // await trackApiUsage(apiKey, 'vision', response.usage);
-
     return NextResponse.json(aiResponse);
   } catch (error: any) {
     console.error('[Narrify AI API] Error:', error);
@@ -121,6 +147,19 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ valid: false }, { status: 401 });
   }
 
-  // TODO: Validate against database
+  // Validate against database
+  const supabase = await createClient();
+  const { data: keyData, error: keyError } = await supabase
+    .from('api_keys')
+    .select('id, active')
+    .eq('key', apiKey)
+    .single();
+
+  const apiKeyData = keyData as unknown as { id: string; active: boolean } | null;
+
+  if (keyError || !apiKeyData || !apiKeyData.active) {
+    return NextResponse.json({ valid: false }, { status: 401 });
+  }
+
   return NextResponse.json({ valid: true });
 }

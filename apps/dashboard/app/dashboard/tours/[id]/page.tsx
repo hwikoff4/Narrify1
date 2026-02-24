@@ -18,6 +18,7 @@ export default function TourDetailPage() {
   const [codeCopied, setCodeCopied] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [theme, setTheme] = useState<any>(null);
 
   useEffect(() => {
     loadTour();
@@ -31,11 +32,16 @@ export default function TourDetailPage() {
 
       const { data: clientData } = await supabase
         .from('clients')
-        .select('*')
+        .select('*, config')
         .eq('auth_user_id', user.id)
         .single();
 
       const client = clientData as any;
+
+      // Load client theme
+      if (client?.config?.theme) {
+        setTheme(client.config.theme);
+      }
 
       const { data: tourDataRaw } = await supabase
         .from('tours')
@@ -60,17 +66,22 @@ export default function TourDetailPage() {
     }
   }
 
-  function copyEmbedCode() {
-    const embedCode = `<!-- Narrify Tour Widget -->
+  function getEmbedCode() {
+    const themeStr = theme
+      ? `,\n    theme: ${JSON.stringify(theme, null, 6).replace(/\n/g, '\n    ')}`
+      : '';
+    return `<!-- Narrify Tour Widget -->
 <script src="https://cdn.narrify.io/widget.js"></script>
 <script>
   Narrify.init({
     tourId: '${tour.id}',
-    apiKey: 'YOUR_API_KEY_HERE'
+    apiKey: 'YOUR_API_KEY_HERE'${themeStr}
   });
 </script>`;
+  }
 
-    navigator.clipboard.writeText(embedCode);
+  function copyEmbedCode() {
+    navigator.clipboard.writeText(getEmbedCode());
     setCodeCopied(true);
     setTimeout(() => setCodeCopied(false), 2000);
   }
@@ -411,14 +422,7 @@ export default function TourDetailPage() {
                   </button>
                 </div>
                 <pre className="bg-gradient-to-br from-neutral-900 to-neutral-800 text-neutral-100 p-5 sm:p-6 rounded-xl overflow-x-auto text-sm font-mono border-2 border-neutral-700/50 shadow-lg">
-{`<!-- Narrify Tour Widget -->
-<script src="https://cdn.narrify.io/widget.js"></script>
-<script>
-  Narrify.init({
-    tourId: '${tour.id}',
-    apiKey: 'YOUR_API_KEY_HERE'
-  });
-</script>`}
+{getEmbedCode()}
                 </pre>
               </div>
 

@@ -102,6 +102,11 @@ export class NarrifyEngine {
         this.state = 'playing';
         this.resume();
       });
+
+      // Track question_asked events
+      this.conversationUI.onQuestionAsked((question: string) => {
+        this.trackEvent('question_asked', { question });
+      });
     }
 
     // Setup keyboard shortcuts
@@ -687,9 +692,24 @@ export class NarrifyEngine {
       metadata,
     };
 
-    // In production, send to API
-    // fetch('/api/analytics', { method: 'POST', body: JSON.stringify(event) });
     console.log('[Narrify Analytics]', event);
+
+    // Send to analytics API (fire-and-forget)
+    try {
+      fetch('/api/analytics', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Narrify-Key': this.config.apiKey,
+        },
+        body: JSON.stringify(event),
+      }).catch((err) => {
+        console.warn('[Narrify Analytics] Failed to send event:', err);
+      });
+    } catch (err) {
+      // Don't block tour flow for analytics errors
+      console.warn('[Narrify Analytics] Failed to send event:', err);
+    }
   }
 
   /**

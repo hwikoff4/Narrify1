@@ -4,8 +4,14 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@/lib/supabase/server';
 
-export const runtime = 'edge';
+interface ApiKeyData {
+  id: string;
+  active: boolean;
+  client_id: string;
+  usage_count: number;
+}
 
 interface VoiceRequest {
   text: string;
@@ -25,15 +31,53 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // TODO: Validate API key against database
-    // const isValid = await validateApiKey(apiKey);
-    // if (!isValid) {
-    //   return NextResponse.json({ error: 'Invalid API key' }, { status: 401 });
-    // }
+    // Validate API key against database
+    const supabase = await createClient();
+    const { data: keyData, error: keyError } = await supabase
+      .from('api_keys')
+      .select('id, active, client_id, usage_count')
+      .eq('key', apiKey)
+      .single();
+
+    const apiKeyData = keyData as unknown as ApiKeyData | null;
+
+    if (keyError || !apiKeyData || !apiKeyData.active) {
+      return NextResponse.json(
+        { error: 'Invalid or inactive API key' },
+        { status: 401 }
+      );
+    }
+
+    // Update API key usage
+    const currentUsageCount = apiKeyData.usage_count || 0;
+    const supabaseForUpdate = await createClient();
+    await supabaseForUpdate
+      .from('api_keys')
+      // @ts-ignore - Supabase type inference may break after type assertion
+      .update({
+        usage_count: currentUsageCount + 1,
+        last_used_at: new Date().toISOString(),
+      })
+      .eq('id', apiKeyData.id);
+
+    // Load client's voice preferences if available
+    const { data: clientData } = await supabase
+      .from('clients')
+      .select('config')
+      .eq('id', apiKeyData.client_id)
+      .single();
+
+    const clientConfig = (clientData as any)?.config;
+    const voicePrefs = clientConfig?.voice;
 
     // Parse request
     const body: VoiceRequest = await request.json();
-    const { text, voiceId, speed, language } = body;
+    const { text } = body;
+
+    // Use client's saved voice preferences as defaults, request body overrides
+    const voiceId = body.voiceId || voicePrefs?.voiceId || '';
+    const speed = body.speed || voicePrefs?.speed || 1.0;
+    const language = body.language || voicePrefs?.language || 'en';
 
     // Map language to ElevenLabs voice
     const elevenLabsVoiceId = getElevenLabsVoiceId(voiceId, language);
@@ -66,9 +110,6 @@ export async function POST(request: NextRequest) {
 
     // Get audio blob
     const audioBlob = await response.blob();
-
-    // Track usage
-    // await trackApiUsage(apiKey, 'voice', text.length);
 
     // Return audio
     return new NextResponse(audioBlob, {

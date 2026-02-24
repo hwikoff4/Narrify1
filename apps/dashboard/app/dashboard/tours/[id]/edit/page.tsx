@@ -2,9 +2,25 @@
 
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { ArrowLeft, Save } from 'lucide-react';
+import { ArrowLeft, Save, Plus, Trash2, GripVertical } from 'lucide-react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
+
+interface Step {
+  id: string;
+  title: string;
+  selector: string;
+  script: string;
+  position: string;
+  description?: string;
+}
+
+interface Page {
+  id: string;
+  url: string;
+  title: string;
+  steps: Step[];
+}
 
 export default function EditTourPage() {
   const params = useParams();
@@ -17,6 +33,7 @@ export default function EditTourPage() {
   const [error, setError] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [pages, setPages] = useState<Page[]>([]);
 
   useEffect(() => {
     loadTour();
@@ -53,12 +70,55 @@ export default function EditTourPage() {
       setTour(tourData);
       setName(tourData.name || '');
       setDescription(tourData.description || '');
+      setPages(tourData.pages || []);
     } catch (err) {
       console.error('Error loading tour:', err);
       setError('Failed to load tour');
     } finally {
       setLoading(false);
     }
+  }
+
+  function updateStep(pageId: string, stepId: string, field: string, value: string) {
+    setPages(prev =>
+      prev.map(page =>
+        page.id === pageId
+          ? {
+              ...page,
+              steps: page.steps.map(step =>
+                step.id === stepId ? { ...step, [field]: value } : step
+              ),
+            }
+          : page
+      )
+    );
+  }
+
+  function addStep(pageId: string) {
+    const newStep: Step = {
+      id: `step-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      title: '',
+      selector: '',
+      script: '',
+      position: 'center',
+    };
+    setPages(prev =>
+      prev.map(page =>
+        page.id === pageId
+          ? { ...page, steps: [...page.steps, newStep] }
+          : page
+      )
+    );
+  }
+
+  function removeStep(pageId: string, stepId: string) {
+    setPages(prev =>
+      prev.map(page =>
+        page.id === pageId
+          ? { ...page, steps: page.steps.filter(s => s.id !== stepId) }
+          : page
+      )
+    );
   }
 
   async function handleSave(e: React.FormEvent) {
@@ -73,6 +133,7 @@ export default function EditTourPage() {
         .update({
           name,
           description,
+          pages,
         })
         .eq('id', params.id);
 
@@ -104,7 +165,7 @@ export default function EditTourPage() {
 
   return (
     <div className="p-8">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <Link
@@ -115,8 +176,8 @@ export default function EditTourPage() {
             Back to Tour
           </Link>
 
-          <h1 className="text-3xl font-bold text-text-primary">✏️ Edit Tour</h1>
-          <p className="text-text-secondary mt-2">Update your tour name and description</p>
+          <h1 className="text-3xl font-bold text-text-primary">Edit Tour</h1>
+          <p className="text-text-secondary mt-2">Update your tour details, pages, and steps</p>
         </div>
 
         {/* Edit Form */}
@@ -165,16 +226,129 @@ export default function EditTourPage() {
               </p>
             </div>
 
-            {/* Info Banner */}
-            <div className="bg-accent/10 border border-accent/30 rounded-xl p-4">
-              <div className="flex gap-3">
-                <span className="text-2xl">ℹ️</span>
-                <div className="flex-1">
-                  <h4 className="font-bold text-text-primary mb-1">Note about editing pages and steps</h4>
-                  <p className="text-sm text-text-secondary">
-                    To edit the pages and steps in your tour, use the Preview page and click "Edit Highlights" to adjust the highlighted areas and positions.
-                  </p>
-                </div>
+            {/* Pages & Steps Editor */}
+            <div>
+              <h2 className="text-xl font-bold text-text-primary mb-4">Pages & Steps</h2>
+              <div className="space-y-6">
+                {pages.map((page, pageIndex) => (
+                  <div
+                    key={page.id}
+                    className="bg-bg-tertiary border border-border rounded-xl overflow-hidden"
+                  >
+                    {/* Page Header */}
+                    <div className="px-6 py-4 bg-bg-elevated border-b border-border">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg bg-accent/20 text-accent flex items-center justify-center font-bold text-sm">
+                            {pageIndex + 1}
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-text-primary">{page.title || 'Untitled Page'}</h3>
+                            <p className="text-xs text-text-tertiary font-mono">{page.url}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Steps */}
+                    <div className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-sm font-semibold text-text-primary">
+                          Steps
+                        </h3>
+                        <button
+                          type="button"
+                          onClick={() => addStep(page.id)}
+                          className="flex items-center gap-2 px-3 py-1.5 text-sm bg-accent/10 text-accent rounded-lg hover:bg-accent/20 transition"
+                        >
+                          <Plus className="w-4 h-4" />
+                          Add Step
+                        </button>
+                      </div>
+
+                      <div className="space-y-4">
+                        {page.steps.map((step) => (
+                          <div
+                            key={step.id}
+                            className="p-4 border border-border rounded-lg space-y-3"
+                          >
+                            <div className="flex items-start gap-4">
+                              <GripVertical className="w-5 h-5 text-text-tertiary mt-2" />
+                              <div className="flex-1 space-y-3">
+                                <div className="grid grid-cols-2 gap-3">
+                                  <input
+                                    type="text"
+                                    required
+                                    value={step.title}
+                                    onChange={(e) =>
+                                      updateStep(page.id, step.id, 'title', e.target.value)
+                                    }
+                                    className="input text-sm"
+                                    placeholder="Step title"
+                                  />
+                                  <input
+                                    type="text"
+                                    required
+                                    value={step.selector}
+                                    onChange={(e) =>
+                                      updateStep(page.id, step.id, 'selector', e.target.value)
+                                    }
+                                    className="input text-sm font-mono"
+                                    placeholder="CSS selector (e.g., #submit-btn)"
+                                  />
+                                </div>
+                                <textarea
+                                  required
+                                  value={step.script}
+                                  onChange={(e) =>
+                                    updateStep(page.id, step.id, 'script', e.target.value)
+                                  }
+                                  rows={2}
+                                  className="input text-sm"
+                                  placeholder="Narration script (e.g., 'Click this button to save your work!')"
+                                />
+                                <div className="grid grid-cols-2 gap-3">
+                                  <select
+                                    value={step.position || 'center'}
+                                    onChange={(e) =>
+                                      updateStep(page.id, step.id, 'position', e.target.value)
+                                    }
+                                    className="input text-sm"
+                                  >
+                                    <option value="top">Top</option>
+                                    <option value="bottom">Bottom</option>
+                                    <option value="left">Left</option>
+                                    <option value="right">Right</option>
+                                    <option value="center">Center</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => removeStep(page.id, step.id)}
+                                className="p-2 text-error hover:bg-error-bg rounded-lg transition"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+
+                        {page.steps.length === 0 && (
+                          <p className="text-sm text-text-tertiary text-center py-4">
+                            No steps yet. Click "Add Step" to create your first step.
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+                {pages.length === 0 && (
+                  <div className="text-center py-8 text-text-tertiary">
+                    <p>No pages in this tour yet. Create the tour first from the New Tour page.</p>
+                  </div>
+                )}
               </div>
             </div>
 

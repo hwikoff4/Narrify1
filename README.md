@@ -404,13 +404,13 @@ Compare to ElevenLabs Agent: ~$0.10+ per minute
 - [x] Database schema
 - [x] Monorepo structure
 
-### Phase 2: Dashboard (In Progress)
-- [x] Authentication UI
-- [x] Tour Builder
-- [ ] Theme Editor
-- [ ] AI Settings
-- [ ] API Key Management
-- [ ] Analytics Dashboard
+### Phase 2: Dashboard ✅
+- [x] Authentication UI (login, signup, password reset, OAuth callback)
+- [x] Tour Builder (admin tours page with correct schema fields, inline step editor on edit page)
+- [x] Theme Editor (saved theme applied to tour preview, theme included in embed code)
+- [x] AI Settings (conversation config, vision settings, voice settings with voice/speed/language)
+- [x] API Key Management (DB-validated keys on narrify-ai, narrify-voice, vision-locate, and analytics routes)
+- [x] Analytics Dashboard (analytics API endpoint, SDK event sending, question_asked tracking)
 
 ### Phase 3: UI Components (TODO)
 - [ ] ControlBar component
