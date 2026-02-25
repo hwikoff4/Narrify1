@@ -77,6 +77,9 @@ export { VoicePlayer } from './core/VoicePlayer';
 export { ScreenCapture } from './core/ScreenCapture';
 export { SpeechToText } from './core/SpeechToText';
 export { VisionAI } from './core/VisionAI';
+export { ControlBar } from './core/ControlBar';
+export { CaptionOverlay } from './core/CaptionOverlay';
+export { ProgressBar } from './core/ProgressBar';
 
 // Attach to window for script tag usage
 if (typeof window !== 'undefined') {

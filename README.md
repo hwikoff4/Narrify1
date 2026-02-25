@@ -412,12 +412,12 @@ Compare to ElevenLabs Agent: ~$0.10+ per minute
 - [x] API Key Management (DB-validated keys on narrify-ai, narrify-voice, vision-locate, and analytics routes)
 - [x] Analytics Dashboard (analytics API endpoint, SDK event sending, question_asked tracking)
 
-### Phase 3: UI Components (TODO)
-- [ ] ControlBar component
-- [ ] ConversationUI component
-- [ ] HoverTooltip component
-- [ ] CaptionOverlay component
-- [ ] Progress Bar component
+### Phase 3: UI Components ✅
+- [x] ControlBar component
+- [x] ConversationUI component
+- [x] HoverTooltip component
+- [x] CaptionOverlay component
+- [x] Progress Bar component
 
 ### Phase 4: Distribution (TODO)
 - [ ] Build and minify SDK

@@ -17,6 +17,9 @@ import { SpeechToText } from './SpeechToText';
 import { VisionAI } from './VisionAI';
 import { HoverExplorer } from './HoverExplorer';
 import { ConversationUI } from './ConversationUI';
+import { ControlBar } from './ControlBar';
+import { CaptionOverlay } from './CaptionOverlay';
+import { ProgressBar } from './ProgressBar';
 
 export type TourState = 'idle' | 'playing' | 'paused' | 'conversation' | 'hover-explore';
 
@@ -36,6 +39,9 @@ export class NarrifyEngine {
   private visionAI: VisionAI;
   private hoverExplorer: HoverExplorer | null = null;
   private conversationUI: ConversationUI | null = null;
+  private controlBar: ControlBar | null = null;
+  private captionOverlay: CaptionOverlay | null = null;
+  private progressBar: ProgressBar | null = null;
 
   // Tour state
   private currentTour: TourDefinition | null = null;
@@ -107,6 +113,44 @@ export class NarrifyEngine {
       this.conversationUI.onQuestionAsked((question: string) => {
         this.trackEvent('question_asked', { question });
       });
+    }
+
+    // Initialize ControlBar
+    if (this.shadowRoot) {
+      this.controlBar = new ControlBar(
+        { theme: this.config.theme! as import('@narrify/shared').ThemeConfig },
+        this.shadowRoot
+      );
+      this.controlBar.onPlayPause(() => this.togglePlayPause());
+      this.controlBar.onNext(() => this.nextStep());
+      this.controlBar.onPrevious(() => this.previousStep());
+      this.controlBar.onReplay(() => this.restart());
+      this.controlBar.onExit(() => this.stop());
+    }
+
+    // Initialize CaptionOverlay if captions enabled
+    if (this.config.captions?.enabled && this.shadowRoot) {
+      this.captionOverlay = new CaptionOverlay(
+        {
+          position: this.config.captions.position || 'bottom',
+          fontSize: this.config.captions.fontSize || 'md',
+          theme: this.config.theme! as import('@narrify/shared').ThemeConfig,
+        },
+        this.shadowRoot
+      );
+    }
+
+    // Initialize ProgressBar if visible
+    if (this.config.progressBar?.visible && this.shadowRoot) {
+      this.progressBar = new ProgressBar(
+        {
+          position: this.config.progressBar.position || 'bottom',
+          clickToSeek: this.config.progressBar.clickToSeek ?? true,
+          theme: this.config.theme! as import('@narrify/shared').ThemeConfig,
+        },
+        this.shadowRoot
+      );
+      this.progressBar.onSeek((index) => this.playStep(index));
     }
 
     // Setup keyboard shortcuts
@@ -396,6 +440,17 @@ export class NarrifyEngine {
       this.conversationUI.show();
     }
 
+    // Show UI components
+    if (this.controlBar) {
+      this.controlBar.show();
+    }
+    if (this.captionOverlay) {
+      this.captionOverlay.show('', '');
+    }
+    if (this.progressBar) {
+      this.progressBar.show();
+    }
+
     // Start first step
     await this.playStep(0);
   }
@@ -485,6 +540,17 @@ export class NarrifyEngine {
     // Track vision usage
     if (visionUsed) {
       this.trackEvent('vision_navigation_success', { stepId: step.id });
+    }
+
+    // Update UI components
+    if (this.controlBar) {
+      this.controlBar.update({ playing: true, stepIndex: index, totalSteps: allSteps.length });
+    }
+    if (this.captionOverlay) {
+      this.captionOverlay.show(step.title, step.script);
+    }
+    if (this.progressBar) {
+      this.progressBar.update(index, allSteps.length);
     }
 
     // Play voice narration
@@ -588,6 +654,10 @@ export class NarrifyEngine {
   pause(): void {
     this.state = 'paused';
     this.voicePlayer.pause();
+    if (this.controlBar) {
+      const allSteps = this.getAllSteps();
+      this.controlBar.update({ playing: false, stepIndex: this.currentStepIndex, totalSteps: allSteps.length });
+    }
   }
 
   /**
@@ -596,6 +666,10 @@ export class NarrifyEngine {
   resume(): void {
     this.state = 'playing';
     this.voicePlayer.resume();
+    if (this.controlBar) {
+      const allSteps = this.getAllSteps();
+      this.controlBar.update({ playing: true, stepIndex: this.currentStepIndex, totalSteps: allSteps.length });
+    }
   }
 
   /**
@@ -642,6 +716,17 @@ export class NarrifyEngine {
       this.conversationUI.hide();
     }
 
+    // Hide UI components
+    if (this.controlBar) {
+      this.controlBar.hide();
+    }
+    if (this.captionOverlay) {
+      this.captionOverlay.hide();
+    }
+    if (this.progressBar) {
+      this.progressBar.hide();
+    }
+
     this.trackEvent('tour_exit');
   }
 
@@ -656,6 +741,17 @@ export class NarrifyEngine {
     // Hide conversation button
     if (this.conversationUI) {
       this.conversationUI.hide();
+    }
+
+    // Hide UI components
+    if (this.controlBar) {
+      this.controlBar.hide();
+    }
+    if (this.captionOverlay) {
+      this.captionOverlay.hide();
+    }
+    if (this.progressBar) {
+      this.progressBar.hide();
     }
 
     this.trackEvent('tour_complete');
@@ -728,6 +824,15 @@ export class NarrifyEngine {
     this.voicePlayer.destroy();
     if (this.hoverExplorer) {
       this.hoverExplorer.destroy();
+    }
+    if (this.controlBar) {
+      this.controlBar.destroy();
+    }
+    if (this.captionOverlay) {
+      this.captionOverlay.destroy();
+    }
+    if (this.progressBar) {
+      this.progressBar.destroy();
     }
     if (this.rootElement) {
       document.body.removeChild(this.rootElement);
