@@ -71,7 +71,7 @@ export default function TourDetailPage() {
       ? `,\n    theme: ${JSON.stringify(theme, null, 6).replace(/\n/g, '\n    ')}`
       : '';
     return `<!-- Narrify Tour Widget -->
-<script src="https://cdn.narrify.io/widget.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@narrify/sdk@latest/dist/narrify.umd.full.js"></script>
 <script>
   Narrify.init({
     tourId: '${tour.id}',

@@ -5,31 +5,46 @@
   "main": "./dist/narrify.cjs.js",
   "module": "./dist/narrify.esm.js",
   "types": "./dist/index.d.ts",
-  "unpkg": "./dist/narrify.umd.js",
-  "jsdelivr": "./dist/narrify.umd.js",
+  "unpkg": "./dist/narrify.umd.full.js",
+  "jsdelivr": "./dist/narrify.umd.full.js",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/narrify.esm.js",
-      "require": "./dist/narrify.cjs.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/narrify.cjs.js"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "vite build --watch",
     "build": "tsc && vite build",
+    "build:full": "tsc && vite build --mode full",
+    "build:production": "pnpm run build && pnpm run build:full",
     "lint": "eslint src/",
     "clean": "rm -rf dist"
   },
-  "dependencies": {
-    "@narrify/shared": "workspace:*",
+  "peerDependencies": {
     "html2canvas": "^1.4.1"
+  },
+  "peerDependenciesMeta": {
+    "html2canvas": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@narrify/shared": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "html2canvas": "^1.4.1",
     "terser": "^5.46.0",
     "typescript": "^5.3.3",
     "vite": "^5.0.10",
@@ -43,5 +58,16 @@
     "interactive",
     "tutorial",
     "guide"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/narrify/narrify.git",
+    "directory": "packages/sdk"
+  },
+  "author": "Narrify",
+  "license": "MIT",
+  "homepage": "https://narrify.io",
+  "bugs": {
+    "url": "https://github.com/narrify/narrify/issues"
+  }
 }

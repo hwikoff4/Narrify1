@@ -3,17 +3,26 @@
  * Captures viewport screenshots for Vision AI
  */
 
-import html2canvas from 'html2canvas';
-
 export interface ScreenCaptureConfig {
   maxSize: number; // Max KB
 }
 
 export class ScreenCapture {
   private config: ScreenCaptureConfig;
+  private html2canvasModule: typeof import('html2canvas') | null = null;
 
   constructor(config: ScreenCaptureConfig) {
     this.config = config;
+  }
+
+  /**
+   * Lazily load html2canvas (enables code-splitting for ESM consumers)
+   */
+  private async getHtml2Canvas(): Promise<typeof import('html2canvas')['default']> {
+    if (!this.html2canvasModule) {
+      this.html2canvasModule = await import('html2canvas');
+    }
+    return this.html2canvasModule.default;
   }
 
   /**
@@ -28,6 +37,7 @@ export class ScreenCapture {
    */
   async captureViewport(): Promise<string> {
     try {
+      const html2canvas = await this.getHtml2Canvas();
       const canvas = await html2canvas(document.body, {
         width: window.innerWidth,
         height: window.innerHeight,
@@ -62,6 +72,7 @@ export class ScreenCapture {
    */
   async captureElement(element: HTMLElement): Promise<string> {
     try {
+      const html2canvas = await this.getHtml2Canvas();
       const canvas = await html2canvas(element, {
         scale: 0.5,
         useCORS: true,

@@ -58,7 +58,7 @@ export default function EmbedPage() {
   }
 
   function getCodeForPlatform() {
-    const baseCode = `<script src="https://cdn.narrify.io/narrify.umd.js"></script>
+    const baseCode = `<script src="https://cdn.jsdelivr.net/npm/@narrify/sdk@latest/dist/narrify.umd.full.js"></script>
 <script>
   Narrify.init({
     apiKey: '${activeKey || 'YOUR_API_KEY'}',
@@ -445,7 +445,7 @@ export default function EmbedPage() {
                   <div className="bg-bg-tertiary border-2 border-border rounded-2xl p-6 shadow-xl">
                     <p className="text-sm text-secondary mb-3 font-bold">It should look like this:</p>
                     <pre className="text-xs font-mono text-primary overflow-x-auto">
-{`  <script src="https://cdn.narrify.io/narrify.umd.js"></script>
+{`  <script src="https://cdn.jsdelivr.net/npm/@narrify/sdk@latest/dist/narrify.umd.full.js"></script>
   <script>
     Narrify.init({
       apiKey: 'YOUR_API_KEY',

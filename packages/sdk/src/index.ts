@@ -71,7 +71,7 @@ export class Narrify {
 
 // Export types
 export * from '@narrify/shared';
-export { NarrifyEngine } from './core/NarrifyEngine';
+export { NarrifyEngine, type TourState } from './core/NarrifyEngine';
 export { SpotlightOverlay } from './core/SpotlightOverlay';
 export { VoicePlayer } from './core/VoicePlayer';
 export { ScreenCapture } from './core/ScreenCapture';

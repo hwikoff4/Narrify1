@@ -1,0 +1,53 @@
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build shared
+        run: pnpm --filter @narrify/shared build
+
+      - name: Build SDK (lite + full)
+        run: pnpm --filter @narrify/sdk run build:production
+
+      - name: Build React wrapper
+        run: pnpm --filter @narrify/react build
+
+      - name: Publish @narrify/shared
+        run: pnpm --filter @narrify/shared publish --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @narrify/sdk
+        run: pnpm --filter @narrify/sdk publish --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @narrify/react
+        run: pnpm --filter @narrify/react publish --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

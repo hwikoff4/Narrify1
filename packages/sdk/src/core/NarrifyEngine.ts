@@ -852,4 +852,22 @@ export class NarrifyEngine {
   getConfig(): NarrifyEngineOptions {
     return this.config;
   }
+
+  /**
+   * Open the conversation UI panel
+   */
+  openConversation(): void {
+    if (this.conversationUI) {
+      this.conversationUI.open();
+    }
+  }
+
+  /**
+   * Close the conversation UI panel
+   */
+  closeConversation(): void {
+    if (this.conversationUI) {
+      this.conversationUI.close();
+    }
+  }
 }

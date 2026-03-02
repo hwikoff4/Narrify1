@@ -13,7 +13,8 @@
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
     "test": "turbo run test",
-    "vercel-build": "turbo run build --filter=narrify-dashboard"
+    "vercel-build": "turbo run build --filter=narrify-dashboard",
+    "publish:sdk": "pnpm --filter @narrify/shared build && pnpm --filter @narrify/sdk run build:production && pnpm --filter @narrify/react build"
   },
   "devDependencies": {
     "turbo": "^2.0.0",

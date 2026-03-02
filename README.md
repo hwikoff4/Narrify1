@@ -128,7 +128,7 @@ pnpm build
 #### Option 1: Script Tag (Any Website)
 
 ```html
-<script src="https://cdn.narrify.io/v1/narrify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@narrify/sdk@latest/dist/narrify.umd.full.js"></script>
 <script>
   Narrify.init({
     apiKey: 'nr_live_xxxxx',
@@ -381,7 +381,7 @@ ELEVENLABS_API_KEY=your-elevenlabs-api-key
 
 # App
 NEXT_PUBLIC_APP_URL=http://localhost:3000
-NEXT_PUBLIC_CDN_URL=https://cdn.narrify.io
+NEXT_PUBLIC_CDN_URL=https://cdn.jsdelivr.net/npm/@narrify/sdk@latest/dist
 ```
 
 ## 📊 Cost Analysis
@@ -419,12 +419,12 @@ Compare to ElevenLabs Agent: ~$0.10+ per minute
 - [x] CaptionOverlay component
 - [x] Progress Bar component
 
-### Phase 4: Distribution (TODO)
-- [ ] Build and minify SDK
-- [ ] CDN setup
-- [ ] React wrapper (@narrify/react)
-- [ ] Documentation site
-- [ ] Example integrations
+### Phase 4: Distribution ✅
+- [x] Build and minify SDK
+- [x] CDN setup
+- [x] React wrapper (@narrify/react)
+- [x] Documentation site
+- [x] Example integrations
 
 ## 🛠️ Tech Stack
 
